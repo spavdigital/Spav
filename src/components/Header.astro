@@ -16,7 +16,8 @@ const prefix = lang === 'pt' ? '/pt' : '';
 <header class="site-header">
   <div class="container inner">
     <a href={lang === 'pt' ? '/pt' : '/'} class="logo">
-      <img src="/logo-horizontal-1600.png" alt="Pedro Gabriel" width="1600" height="719" />
+      <img class="logo-full" src="/logo-horizontal-1600.png" alt="Pedro Gabriel" width="1600" height="719" />
+      <img class="logo-mark" src="/favicon-192.png" alt="Pedro Gabriel" width="192" height="192" />
     </a>
     <nav class="site-nav" aria-label="Main">
       <a href={lang === 'pt' ? '/pt' : '/'}>{dict.nav.home}</a>
@@ -42,9 +43,24 @@ const prefix = lang === 'pt' ? '/pt' : '';
     padding-block: 1rem;
   }
 
+  .logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
   .logo img {
-    height: 2.75rem;
     width: auto;
+    max-width: none;
+  }
+
+  .logo-full {
+    height: 2.75rem;
+  }
+
+  .logo-mark {
+    height: 2.25rem;
+    display: none;
   }
 
   .site-nav {
@@ -63,9 +79,21 @@ const prefix = lang === 'pt' ? '/pt' : '';
   }
 
   @media (max-width: 640px) {
+    .inner {
+      gap: 0.75rem;
+    }
+
     .site-nav {
-      gap: 1rem;
-      font-size: 0.85rem;
+      gap: 0.65rem;
+      font-size: 0.8rem;
+    }
+
+    .logo-full {
+      display: none;
+    }
+
+    .logo-mark {
+      display: block;
     }
   }
 </style>
