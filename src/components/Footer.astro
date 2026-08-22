@@ -18,7 +18,15 @@ const whatsappHref = whatsapp ? `https://wa.me/${whatsapp.replace(/[^\d]/g, '')}
     <div class="contact-grid">
       <div>
         <p class="label">{dict.contact.discordLabel}</p>
-        <p>{dict.contact.discord}</p>
+        <button
+          type="button"
+          class="copy-btn"
+          data-copy-value={dict.contact.discord}
+          data-default-label={dict.contact.discord}
+          data-copied-label={dict.contact.copiedLabel}
+        >
+          <span class="copy-btn-text">{dict.contact.discord}</span>
+        </button>
       </div>
       <div>
         <p class="label">{dict.contact.emailLabel}</p>
@@ -60,4 +68,77 @@ const whatsappHref = whatsapp ? `https://wa.me/${whatsapp.replace(/[^\d]/g, '')}
     color: var(--color-text-muted);
     margin-bottom: 0.25rem;
   }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .copy-btn:hover {
+    color: var(--color-accent-cyan);
+  }
+
+  .copy-btn.copied {
+    color: var(--color-accent-cyan);
+  }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
+    const textEl = btn.querySelector<HTMLSpanElement>('.copy-btn-text');
+    const value = btn.dataset.copyValue ?? '';
+    const defaultLabel = btn.dataset.defaultLabel ?? value;
+    const copiedLabel = btn.dataset.copiedLabel ?? defaultLabel;
+    let resetTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const showCopied = () => {
+      if (textEl) textEl.textContent = copiedLabel;
+      btn.classList.add('copied');
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        if (textEl) textEl.textContent = defaultLabel;
+        btn.classList.remove('copied');
+      }, 1500);
+    };
+
+    const fallbackCopy = (text: string) => {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    };
+
+    btn.addEventListener('click', async () => {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          fallbackCopy(value);
+        }
+      } catch {
+        try {
+          fallbackCopy(value);
+        } catch {
+          return;
+        }
+      }
+      showCopied();
+    });
+  });
+</script>

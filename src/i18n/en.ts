@@ -49,6 +49,7 @@ export const en = {
     heading: 'Contact',
     discordLabel: 'Discord',
     discord: '@pedrogabriels',
+    copiedLabel: 'Copied',
     emailLabel: 'Email',
     email: 'spavdigital@gmail.com',
     timezoneLabel: 'Timezone',

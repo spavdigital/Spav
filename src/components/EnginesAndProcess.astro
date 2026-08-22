@@ -1,0 +1,75 @@
+---
+import type { Dict } from '../i18n';
+
+interface Props {
+  dict: Dict;
+}
+
+const { dict } = Astro.props;
+---
+
+<section class="container home-engines">
+  <h2>{dict.services.enginesHeading}</h2>
+  <div class="engine-grid">
+    {dict.services.engines.map((engine) => (
+      <div class="card">
+        <h3>{engine.name}</h3>
+        <p>{engine.detail}</p>
+      </div>
+    ))}
+  </div>
+  <p class="also">{dict.services.also}</p>
+</section>
+
+<section class="container home-process">
+  <h2>{dict.services.processHeading}</h2>
+  <ol class="steps">
+    {dict.services.steps.map((step) => (
+      <li class="card">
+        <h3>{step.title}</h3>
+        <p>{step.body}</p>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .home-engines,
+  .home-process {
+    padding-block: 2rem;
+  }
+
+  .engine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .also {
+    margin-top: 1.25rem;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+
+  .steps {
+    list-style: none;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1rem;
+    counter-reset: step;
+  }
+
+  .steps li h3::before {
+    counter-increment: step;
+    content: counter(step) '. ';
+    color: var(--color-accent-violet);
+  }
+
+  .home-engines .card,
+  .home-process .card {
+    padding: 1.25rem;
+  }
+</style>

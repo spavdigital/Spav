@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EnginesAndProcess from '../components/EnginesAndProcess.astro';
 import { getDict } from '../i18n';
 
 const dict = getDict('en');
@@ -33,15 +34,17 @@ const dict = getDict('en');
     </div>
     <p class="note">{dict.home.availability.note}</p>
   </section>
+
+  <EnginesAndProcess dict={dict} />
 </BaseLayout>
 
 <style>
   .hero {
     padding-block: 5rem 3rem;
-    max-width: 44rem;
   }
 
   .sub {
+    max-width: 34rem;
     font-size: 1.15rem;
     color: var(--color-text-muted);
   }

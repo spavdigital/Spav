@@ -49,6 +49,7 @@ export const pt = {
     heading: 'Contato',
     discordLabel: 'Discord',
     discord: '@pedrogabriels',
+    copiedLabel: 'Copiado',
     emailLabel: 'E-mail',
     email: 'spavdigital@gmail.com',
     whatsappLabel: 'WhatsApp',
