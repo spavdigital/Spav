@@ -1,0 +1,71 @@
+---
+import LangSwitch from './LangSwitch.astro';
+import type { Dict, Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  dict: Dict;
+  enPath: string;
+  ptPath: string;
+}
+
+const { lang, dict, enPath, ptPath } = Astro.props;
+const prefix = lang === 'pt' ? '/pt' : '';
+---
+
+<header class="site-header">
+  <div class="container inner">
+    <a href={lang === 'pt' ? '/pt' : '/'} class="logo">
+      <img src="/logo-horizontal-1600.png" alt="Pedro Gabriel" width="200" height="50" />
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href={lang === 'pt' ? '/pt' : '/'}>{dict.nav.home}</a>
+      <a href={`${prefix}/work`}>{dict.nav.work}</a>
+      <a href={`${prefix}/services`}>{dict.nav.services}</a>
+      <a href={`${prefix}/about`}>{dict.nav.about}</a>
+    </nav>
+    <LangSwitch lang={lang} enPath={enPath} ptPath={ptPath} />
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1rem;
+  }
+
+  .logo img {
+    height: 2rem;
+    width: auto;
+  }
+
+  .site-nav {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .site-nav a {
+    color: var(--color-text);
+  }
+
+  .site-nav a:hover {
+    color: var(--color-accent-cyan);
+  }
+
+  @media (max-width: 640px) {
+    .site-nav {
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>

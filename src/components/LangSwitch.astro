@@ -1,0 +1,40 @@
+---
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  enPath: string;
+  ptPath: string;
+}
+
+const { lang, enPath, ptPath } = Astro.props;
+---
+
+<nav class="lang-switch" aria-label="Language">
+  <a href={enPath} aria-current={lang === 'en' ? 'page' : undefined} class={lang === 'en' ? 'active' : ''}>EN</a>
+  <span aria-hidden="true">/</span>
+  <a href={ptPath} aria-current={lang === 'pt' ? 'page' : undefined} class={lang === 'pt' ? 'active' : ''}>PT</a>
+</nav>
+
+<style>
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-text);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .lang-switch a {
+    color: var(--color-text-muted);
+  }
+
+  .lang-switch a.active {
+    color: var(--color-text);
+  }
+
+  .lang-switch span {
+    color: var(--color-border);
+  }
+</style>

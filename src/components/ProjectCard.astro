@@ -1,0 +1,37 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  engine: string;
+  complexity: string;
+  summary: string;
+}
+
+const { href, title, engine, complexity, summary } = Astro.props;
+---
+
+<a class="project-card card" href={href}>
+  <p class="meta">{engine} · {complexity}</p>
+  <h3>{title}</h3>
+  <p>{summary}</p>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    color: var(--color-text);
+  }
+
+  .project-card:hover {
+    border-color: var(--color-accent-cyan);
+    text-decoration: none;
+  }
+
+  .meta {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+  }
+</style>

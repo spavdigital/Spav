@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getDict } from '../i18n';
+
+const dict = getDict('en');
+---
+
+<BaseLayout
+  lang="en"
+  dict={dict}
+  title="Pedro Gabriel — Game systems programmer"
+  description={dict.home.sub}
+  enPath="/"
+  ptPath="/pt"
+>
+  <section class="hero container">
+    <p class="eyebrow">{dict.home.eyebrow}</p>
+    <h1>{dict.home.h1}</h1>
+    <p class="sub">{dict.home.sub}</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#contact">{dict.home.ctaPrimary}</a>
+      <a class="btn btn-secondary" href="/work">{dict.home.ctaSecondary}</a>
+    </div>
+  </section>
+
+  <section class="availability container">
+    <div class="cards">
+      {dict.home.availability.cards.map((label) => (
+        <div class="card">
+          <p>{label}</p>
+        </div>
+      ))}
+    </div>
+    <p class="note">{dict.home.availability.note}</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: 5rem 3rem;
+    max-width: 44rem;
+  }
+
+  .sub {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .availability {
+    padding-block: 2rem 4rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1rem;
+  }
+
+  .cards .card {
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .note {
+    margin-top: 1.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+</style>

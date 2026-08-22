@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getDict } from '../../../i18n';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('work', ({ data }) => import.meta.env.DEV || !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const dict = getDict('pt');
+---
+
+<BaseLayout
+  lang="pt"
+  dict={dict}
+  title={`${entry.data.title} — Pedro Gabriel`}
+  description={entry.data.summary}
+  enPath={`/work/${entry.id}`}
+  ptPath={`/pt/work/${entry.id}`}
+>
+  <article class="container project">
+    {entry.data.videoUrl && (
+      <div class="video-wrap">
+        <video controls src={entry.data.videoUrl}></video>
+      </div>
+    )}
+
+    <p class="meta">{entry.data.engine} · {entry.data.complexity}</p>
+    <h1>{entry.data.title}</h1>
+
+    <section>
+      <h2>{dict.project.whatItIs}</h2>
+      <p>{entry.data.summary}</p>
+    </section>
+
+    <section>
+      <h2>{dict.project.underTheHood}</h2>
+      <Content />
+    </section>
+
+    <section class="proof">
+      {entry.data.liveUrl && (
+        <a class="btn btn-primary" href={entry.data.liveUrl}>{dict.project.tryIt}</a>
+      )}
+      {entry.data.repoUrl && (
+        <a class="btn btn-secondary" href={entry.data.repoUrl}>{dict.project.source}</a>
+      )}
+    </section>
+
+    <ul class="tags">
+      {entry.data.tags.map((tag) => <li>{tag}</li>)}
+    </ul>
+
+    <p class="back"><a href="/pt/work">&larr; {dict.project.backToWork}</a></p>
+  </article>
+</BaseLayout>
+
+<style>
+  .project {
+    padding-block: 3rem 5rem;
+    max-width: 44rem;
+  }
+
+  .video-wrap {
+    margin-bottom: 2rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .video-wrap video {
+    width: 100%;
+    display: block;
+  }
+
+  .meta {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  section {
+    margin-block: 2rem;
+  }
+
+  .proof {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .back {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+  }
+</style>

@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getDict } from '../../i18n';
+
+const dict = getDict('pt');
+---
+
+<BaseLayout
+  lang="pt"
+  dict={dict}
+  title="Sobre — Pedro Gabriel"
+  description={dict.about.paragraphs[0]}
+  enPath="/about"
+  ptPath="/pt/about"
+>
+  <section class="container section">
+    <h1>{dict.about.heading}</h1>
+    {dict.about.paragraphs.map((paragraph) => (
+      <p class="lead">{paragraph}</p>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: 4rem;
+    max-width: 40rem;
+  }
+
+  .lead {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+  }
+</style>

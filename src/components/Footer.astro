@@ -1,0 +1,63 @@
+---
+import type { Dict, Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  dict: Dict;
+}
+
+const { lang, dict } = Astro.props;
+const whatsapp = lang === 'pt' ? (dict.contact as any).whatsapp as string | undefined : undefined;
+const whatsappLabel = lang === 'pt' ? (dict.contact as any).whatsappLabel as string | undefined : undefined;
+const whatsappHref = whatsapp ? `https://wa.me/${whatsapp.replace(/[^\d]/g, '')}` : undefined;
+---
+
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <h2>{dict.contact.heading}</h2>
+    <div class="contact-grid">
+      <div>
+        <p class="label">{dict.contact.discordLabel}</p>
+        <p>{dict.contact.discord}</p>
+      </div>
+      <div>
+        <p class="label">{dict.contact.emailLabel}</p>
+        <p><a href={`mailto:${dict.contact.email}`}>{dict.contact.email}</a></p>
+      </div>
+      {whatsapp && (
+        <div>
+          <p class="label">{whatsappLabel}</p>
+          <p><a href={whatsappHref}>{whatsapp}</a></p>
+        </div>
+      )}
+      <div>
+        <p class="label">{dict.contact.timezoneLabel}</p>
+        <p>{dict.contact.timezone}</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding-block: 3rem;
+    margin-top: 4rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.25rem;
+  }
+</style>

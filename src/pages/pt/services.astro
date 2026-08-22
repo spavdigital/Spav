@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getDict } from '../../i18n';
+
+const dict = getDict('pt');
+---
+
+<BaseLayout
+  lang="pt"
+  dict={dict}
+  title="Serviços — Pedro Gabriel"
+  description={dict.services.also}
+  enPath="/services"
+  ptPath="/pt/services"
+>
+  <section class="container section">
+    <h2>{dict.services.enginesHeading}</h2>
+    <div class="engine-grid">
+      {dict.services.engines.map((engine) => (
+        <div class="card">
+          <h3>{engine.name}</h3>
+          <p>{engine.detail}</p>
+        </div>
+      ))}
+    </div>
+    <p class="also">{dict.services.also}</p>
+  </section>
+
+  <section class="container section">
+    <h2>{dict.services.processHeading}</h2>
+    <ol class="steps">
+      {dict.services.steps.map((step) => (
+        <li class="card">
+          <h3>{step.title}</h3>
+          <p>{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: 3rem;
+  }
+
+  .engine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .also {
+    margin-top: 1.5rem;
+    color: var(--color-text-muted);
+  }
+
+  .steps {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1.25rem;
+    counter-reset: step;
+  }
+
+  .steps li h3::before {
+    counter-increment: step;
+    content: counter(step) '. ';
+    color: var(--color-accent-violet);
+  }
+</style>
