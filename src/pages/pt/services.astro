@@ -53,8 +53,8 @@ const dict = getDict('pt');
   <section class="container section">
     <h2>{dict.services.faq.heading}</h2>
     <div class="faq">
-      {dict.services.faq.items.map((item) => (
-        <details class="faq-item card">
+      {dict.services.faq.items.map((item, index) => (
+        <details class="faq-item card" open={index < 2}>
           <summary>{item.q}</summary>
           <p>{item.a}</p>
         </details>
