@@ -1,5 +1,8 @@
 export const pt = {
   lang: 'pt' as const,
+  a11y: {
+    skipToContent: 'Pular para o conteúdo',
+  },
   nav: {
     home: 'Início',
     work: 'Trabalhos',

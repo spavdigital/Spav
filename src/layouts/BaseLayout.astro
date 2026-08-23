@@ -57,8 +57,9 @@ const ogLocale = lang === 'pt' ? 'pt_BR' : 'en_US';
     />
   </head>
   <body>
+    <a class="skip-link" href="#main">{dict.a11y.skipToContent}</a>
     <Header lang={lang} dict={dict} enPath={enPath} ptPath={ptPath} />
-    <main>
+    <main id="main" tabindex="-1">
       <slot />
     </main>
     <Footer lang={lang} dict={dict} />

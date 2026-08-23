@@ -26,10 +26,10 @@ const { href, title, engine, complexity, summary, previewVideoUrl, previewPoster
     ></video>
   )}
   {previewVideoUrl && previewPosterUrl && (
-    <img class="preview preview-static" src={previewPosterUrl} alt="" />
+    <img class="preview preview-static" src={previewPosterUrl} alt="" loading="lazy" />
   )}
   <p class="meta">{engine} · {complexity}</p>
-  <h3>{title}</h3>
+  <h2>{title}</h2>
   <p>{summary}</p>
 </a>
 

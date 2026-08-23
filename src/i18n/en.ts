@@ -1,5 +1,8 @@
 export const en = {
   lang: 'en' as const,
+  a11y: {
+    skipToContent: 'Skip to content',
+  },
   nav: {
     home: 'Home',
     work: 'Work',

@@ -38,6 +38,7 @@ const isEmbeddableVideo = entry.data.videoUrl?.includes('youtube.com/embed') || 
             title={entry.data.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
+            loading="lazy"
           ></iframe>
         ) : (
           <video controls src={entry.data.videoUrl}></video>
