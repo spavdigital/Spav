@@ -4,9 +4,12 @@ import { getDict } from '../../i18n';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('work', ({ data }) => import.meta.env.DEV || !data.draft);
+  const entries = await getCollection(
+    'work',
+    ({ data }) => (import.meta.env.DEV || !data.draft) && data.lang === 'en'
+  );
   return entries.map((entry) => ({
-    params: { slug: entry.id },
+    params: { slug: entry.data.urlSlug ?? entry.id },
     props: { entry },
   }));
 }
@@ -14,6 +17,8 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const dict = getDict('en');
+const slug = entry.data.urlSlug ?? entry.id;
+const isEmbeddableVideo = entry.data.videoUrl?.includes('youtube.com/embed') || entry.data.videoUrl?.includes('youtu.be');
 ---
 
 <BaseLayout
@@ -21,13 +26,22 @@ const dict = getDict('en');
   dict={dict}
   title={`${entry.data.title} — Pedro Gabriel`}
   description={entry.data.summary}
-  enPath={`/work/${entry.id}`}
-  ptPath="/pt/work"
+  enPath={`/work/${slug}`}
+  ptPath={`/pt/work/${slug}`}
 >
   <article class="container project">
     {entry.data.videoUrl && (
       <div class="video-wrap">
-        <video controls src={entry.data.videoUrl}></video>
+        {isEmbeddableVideo ? (
+          <iframe
+            src={entry.data.videoUrl}
+            title={entry.data.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        ) : (
+          <video controls src={entry.data.videoUrl}></video>
+        )}
       </div>
     )}
 
@@ -74,9 +88,12 @@ const dict = getDict('en');
     background: var(--color-surface);
   }
 
-  .video-wrap video {
+  .video-wrap video,
+  .video-wrap iframe {
     width: 100%;
+    aspect-ratio: 16 / 9;
     display: block;
+    border: 0;
   }
 
   .meta {

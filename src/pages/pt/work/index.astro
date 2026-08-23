@@ -5,7 +5,7 @@ import { getDict } from '../../../i18n';
 import { getCollection } from 'astro:content';
 
 const dict = getDict('pt');
-const entries = (await getCollection('work', ({ data }) => !data.draft)).sort(
+const entries = (await getCollection('work', ({ data }) => !data.draft && data.lang === 'pt')).sort(
   (a, b) => a.data.order - b.data.order
 );
 ---
@@ -26,11 +26,12 @@ const entries = (await getCollection('work', ({ data }) => !data.draft)).sort(
       <div class="grid">
         {entries.map((entry) => (
           <ProjectCard
-            href={`/pt/work/${entry.id}`}
+            href={`/pt/work/${entry.data.urlSlug ?? entry.id}`}
             title={entry.data.title}
             engine={entry.data.engine}
             complexity={entry.data.complexity}
             summary={entry.data.summary}
+            previewVideoUrl={entry.data.previewVideoUrl}
           />
         ))}
       </div>

@@ -5,12 +5,24 @@ interface Props {
   engine: string;
   complexity: string;
   summary: string;
+  previewVideoUrl?: string;
 }
 
-const { href, title, engine, complexity, summary } = Astro.props;
+const { href, title, engine, complexity, summary, previewVideoUrl } = Astro.props;
 ---
 
 <a class="project-card card" href={href}>
+  {previewVideoUrl && (
+    <video
+      class="preview"
+      src={previewVideoUrl}
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+    ></video>
+  )}
   <p class="meta">{engine} · {complexity}</p>
   <h3>{title}</h3>
   <p>{summary}</p>
@@ -20,11 +32,21 @@ const { href, title, engine, complexity, summary } = Astro.props;
   .project-card {
     display: block;
     color: var(--color-text);
+    overflow: hidden;
   }
 
   .project-card:hover {
     border-color: var(--color-accent-cyan);
     text-decoration: none;
+  }
+
+  .preview {
+    width: calc(100% + 3rem);
+    margin: -1.5rem -1.5rem 1rem;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--color-surface-2);
   }
 
   .meta {
