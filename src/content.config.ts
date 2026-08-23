@@ -13,6 +13,11 @@ const work = defineCollection({
     // Work grid (e.g. "/work/npc-ai-card.mp4") — deliberately not a full
     // URL like videoUrl, since it's always a same-site public/ asset.
     previewVideoUrl: z.string().optional(),
+    // Poster frame for previewVideoUrl. Shown while the video loads, if
+    // autoplay is blocked (iOS low-power mode, data saver), and — via the
+    // prefers-reduced-motion CSS in ProjectCard — as the only thing shown
+    // to users who've asked for less motion.
+    previewPosterUrl: z.string().optional(),
     repoUrl: z.string().url().optional(),
     liveUrl: z.string().url().optional(),
     tags: z.array(z.string()).default([]),

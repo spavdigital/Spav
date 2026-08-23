@@ -76,13 +76,20 @@ const isEmbeddableVideo = entry.data.videoUrl?.includes('youtube.com/embed') || 
 </BaseLayout>
 
 <style>
+  /*
+    The article itself uses .container's full width (72rem) rather than a
+    narrow column, so the code block below can span it. Everything else —
+    video, heading, paragraphs, buttons, tags — gets its own max-width and
+    re-centers within that wider article, so the page reads exactly as
+    before except where a code block needs the extra room.
+  */
   .project {
     padding-block: 3rem 5rem;
-    max-width: 44rem;
   }
 
   .video-wrap {
-    margin-bottom: 2rem;
+    max-width: 44rem;
+    margin: 0 auto 2rem;
     border-radius: var(--radius);
     overflow: hidden;
     background: var(--color-surface);
@@ -96,24 +103,51 @@ const isEmbeddableVideo = entry.data.videoUrl?.includes('youtube.com/embed') || 
     border: 0;
   }
 
-  .meta {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-muted);
+  .meta,
+  h1 {
+    max-width: 44rem;
+    margin-inline: auto;
   }
 
   section {
     margin-block: 2rem;
   }
 
+  /* :global() on h2/p is required for the same reason as pre below:
+     <Content />'s markdown output (the "Under the hood" paragraphs) is
+     rendered by a different component and never carries this page's
+     scoping attribute, so a plain "section > p" silently fails to match
+     it — even though the sibling "What it is" <p>, written directly in
+     this file, would have matched fine on its own. */
+  section :global(h2),
+  section :global(p) {
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  /* The deliberate exception: code blocks span the full article width so
+     the explanatory comments in them don't truncate at a narrow measure. */
+  section :global(pre) {
+    font-size: 13px;
+    overflow-x: auto;
+  }
+
   .proof {
+    max-width: 44rem;
+    margin-inline: auto;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
   }
 
+  .tags {
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
   .back {
+    max-width: 44rem;
+    margin-inline: auto;
     margin-top: 3rem;
     font-size: 0.9rem;
   }

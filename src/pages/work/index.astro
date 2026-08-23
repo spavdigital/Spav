@@ -32,6 +32,7 @@ const entries = (await getCollection('work', ({ data }) => !data.draft && data.l
             complexity={entry.data.complexity}
             summary={entry.data.summary}
             previewVideoUrl={entry.data.previewVideoUrl}
+            previewPosterUrl={entry.data.previewPosterUrl}
           />
         ))}
       </div>
@@ -52,7 +53,10 @@ const entries = (await getCollection('work', ({ data }) => !data.draft && data.l
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    /* auto-fill (not auto-fit) keeps empty tracks instead of collapsing
+       them, and capping the track at 26rem stops a lone card (or the last
+       card in an uneven row) from stretching to fill the row. */
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 26rem));
     gap: 1.5rem;
     margin-top: 1.5rem;
   }

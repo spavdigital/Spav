@@ -6,9 +6,10 @@ interface Props {
   complexity: string;
   summary: string;
   previewVideoUrl?: string;
+  previewPosterUrl?: string;
 }
 
-const { href, title, engine, complexity, summary, previewVideoUrl } = Astro.props;
+const { href, title, engine, complexity, summary, previewVideoUrl, previewPosterUrl } = Astro.props;
 ---
 
 <a class="project-card card" href={href}>
@@ -16,12 +17,16 @@ const { href, title, engine, complexity, summary, previewVideoUrl } = Astro.prop
     <video
       class="preview"
       src={previewVideoUrl}
+      poster={previewPosterUrl}
       autoplay
       muted
       loop
       playsinline
       preload="metadata"
     ></video>
+  )}
+  {previewVideoUrl && previewPosterUrl && (
+    <img class="preview preview-static" src={previewPosterUrl} alt="" />
   )}
   <p class="meta">{engine} · {complexity}</p>
   <h3>{title}</h3>
@@ -47,6 +52,23 @@ const { href, title, engine, complexity, summary, previewVideoUrl } = Astro.prop
     aspect-ratio: 16 / 9;
     object-fit: cover;
     background: var(--color-surface-2);
+  }
+
+  .preview-static {
+    display: none;
+  }
+
+  /* Users who've asked for less motion get the poster frame only — the
+     video is removed from the render tree (not just paused), which stops
+     browsers from decoding it in the background. */
+  @media (prefers-reduced-motion: reduce) {
+    video.preview {
+      display: none;
+    }
+
+    .preview-static {
+      display: block;
+    }
   }
 
   .meta {

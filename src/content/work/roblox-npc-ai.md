@@ -5,6 +5,7 @@ complexity: "Medium"
 summary: "A server-authoritative NPC state machine for Roblox: patrols a set of waypoints, spots players by line of sight, chases with PathfindingService, and attacks in melee range."
 videoUrl: "https://www.youtube.com/embed/i-PDjMKdUSk"
 previewVideoUrl: "/work/npc-ai-card.mp4"
+previewPosterUrl: "/work/npc-ai-card.jpg"
 repoUrl: "https://github.com/spavdigital/roblox-npc-ai"
 liveUrl: "https://www.roblox.com/games/120166913647612/NPC-AI-Demo-SPAV"
 tags: ["Luau", "Rojo", "PathfindingService", "server-authoritative", "MIT"]
