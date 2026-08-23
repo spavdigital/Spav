@@ -1,9 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EnginesAndProcess from '../../components/EnginesAndProcess.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
 import { getDict } from '../../i18n';
+import { getCollection } from 'astro:content';
 
 const dict = getDict('pt');
+const featuredWork = (await getCollection('work', ({ data }) => !data.draft && data.lang === 'pt'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -36,6 +41,26 @@ const dict = getDict('pt');
   </section>
 
   <EnginesAndProcess dict={dict} />
+
+  {featuredWork.length > 0 && (
+    <section class="container selected-work">
+      <h2>{dict.home.selectedWork.heading}</h2>
+      <div class="grid">
+        {featuredWork.map((entry) => (
+          <ProjectCard
+            href={`/pt/work/${entry.data.urlSlug ?? entry.id}`}
+            title={entry.data.title}
+            engine={entry.data.engine}
+            complexity={entry.data.complexity}
+            summary={entry.data.summary}
+            previewVideoUrl={entry.data.previewVideoUrl}
+            previewPosterUrl={entry.data.previewPosterUrl}
+          />
+        ))}
+      </div>
+      <p class="see-all"><a href="/pt/work">{dict.home.selectedWork.cta} &rarr;</a></p>
+    </section>
+  )}
 </BaseLayout>
 
 <style>
@@ -79,5 +104,20 @@ const dict = getDict('pt');
     margin-top: 1.5rem;
     color: var(--color-text-muted);
     font-size: 0.95rem;
+  }
+
+  .selected-work {
+    padding-block: 2rem 4rem;
+  }
+
+  .selected-work .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 26rem));
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .see-all {
+    margin-top: 1.5rem;
   }
 </style>

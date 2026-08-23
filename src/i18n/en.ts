@@ -19,6 +19,10 @@ export const en = {
       cards: ['Full-time', 'Part-time', 'Per-project', 'Quick fixes'],
       note: 'No job too small, no contract too long. Tell me the format that works for your team.',
     },
+    selectedWork: {
+      heading: 'Selected work',
+      cta: 'See all work',
+    },
   },
   services: {
     enginesHeading: 'Engines',
@@ -35,10 +39,59 @@ export const en = {
       { title: 'Milestones', body: 'Payment in stages, each tied to something you can test. Never full payment upfront.' },
       { title: 'Handover', body: 'Source code, install instructions, and a repository you own. No obfuscation, no phone-home.' },
     ],
+    whatYouGet: {
+      heading: 'What you get',
+      intro: 'Every delivery includes:',
+      items: [
+        "Source code, readable, with comments where the reasoning isn't obvious",
+        'A repository you own',
+        "Install instructions written for someone who isn't me",
+        'Configuration separated from logic, so you can tune values without editing code',
+        'A note on what the system deliberately does not do',
+      ],
+    },
+    faq: {
+      heading: 'Questions people ask before hiring',
+      items: [
+        {
+          q: 'Do I own the code?',
+          a: 'Yes. You get the source, the repository, and the right to modify it. No obfuscation, no escrow, no license server, nothing phoning home.',
+        },
+        {
+          q: 'How do you quote?',
+          a: 'Tell me what the system needs to do. I ask the questions that surface edge cases, then quote a fixed price for the task or an hourly rate for ongoing work — within 24 hours.',
+        },
+        {
+          q: 'How does payment work?',
+          a: "In stages. Each milestone is tied to something you can run and test before you pay for it. I don't ask for the full amount upfront, and I don't expect you to trust me before I've shown anything.",
+        },
+        {
+          q: 'What happens if something breaks after delivery?',
+          a: "Bugs in what I delivered get fixed at no charge. New features are new work, quoted separately. I'll tell you which is which honestly.",
+        },
+        {
+          q: 'Which frameworks do you work with?',
+          a: "FiveM: ESX and QBCore, and standalone. Roblox: Rojo projects and plain Studio. Minecraft: Spigot and Paper. If your server runs something custom, send me the structure and I'll tell you before quoting whether it's a good fit.",
+        },
+        {
+          q: 'Can you join an existing codebase?',
+          a: "Yes. Reading someone else's code and matching its conventions is part of the job, not an obstacle to it.",
+        },
+        {
+          q: 'How long does it take?',
+          a: 'It depends on scope, and anyone who answers this without asking questions is guessing. A small utility is usually days; a full system with a UI and a database is usually weeks.',
+        },
+      ],
+    },
   },
   work: {
     heading: 'Work',
     empty: 'Demos are landing here as they are built. Each one ships with a video, the source on GitHub under MIT, and something you can actually run.',
+  },
+  notFound: {
+    title: 'Page not found',
+    text: "That page doesn't exist. The work is over here.",
+    cta: 'See the work',
   },
   about: {
     heading: 'About',

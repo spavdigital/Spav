@@ -19,6 +19,16 @@ const canonicalPt = new URL(ptPath, Astro.site);
 const canonical = lang === 'pt' ? canonicalPt : canonicalEn;
 const ogImage = new URL('/og-image.png', Astro.site);
 const ogLocale = lang === 'pt' ? 'pt_BR' : 'en_US';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Pedro Gabriel',
+  jobTitle: 'Game systems programmer',
+  url: Astro.site?.toString(),
+  sameAs: ['https://github.com/spavdigital', 'https://www.youtube.com/@Spavdigital'],
+  knowsAbout: ['Roblox', 'FiveM', 'Minecraft', 'Lua', 'Luau', 'C#'],
+};
 ---
 
 <!doctype html>
@@ -55,6 +65,8 @@ const ogLocale = lang === 'pt' ? 'pt_BR' : 'en_US';
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
   <body>
     <a class="skip-link" href="#main">{dict.a11y.skipToContent}</a>
