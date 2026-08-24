@@ -10,6 +10,7 @@ const { lang, dict } = Astro.props;
 const whatsapp = lang === 'pt' ? (dict.contact as any).whatsapp as string | undefined : undefined;
 const whatsappLabel = lang === 'pt' ? (dict.contact as any).whatsappLabel as string | undefined : undefined;
 const whatsappHref = whatsapp ? `https://wa.me/${whatsapp.replace(/[^\d]/g, '')}` : undefined;
+const lastUpdated = new Date().toISOString().slice(0, 10);
 ---
 
 <footer class="site-footer" id="contact">
@@ -43,6 +44,7 @@ const whatsappHref = whatsapp ? `https://wa.me/${whatsapp.replace(/[^\d]/g, '')}
         <p>{dict.contact.timezone}</p>
       </div>
     </div>
+    <p class="updated">{dict.footer.lastUpdated}: {lastUpdated}</p>
   </div>
 </footer>
 
@@ -88,6 +90,12 @@ const whatsappHref = whatsapp ? `https://wa.me/${whatsapp.replace(/[^\d]/g, '')}
 
   .copy-btn.copied {
     color: var(--color-accent-cyan);
+  }
+
+  .updated {
+    margin-top: 2rem;
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
   }
 </style>
 

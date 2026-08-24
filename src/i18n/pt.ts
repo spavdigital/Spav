@@ -86,7 +86,7 @@ export const pt = {
   },
   work: {
     heading: 'Trabalhos',
-    empty: 'As demos vão aparecer aqui conforme forem ficando prontas. Cada uma vem com um vídeo, o código no GitHub sob licença MIT, e algo que você realmente pode rodar.',
+    empty: 'Sistemas com vídeo onde já existe, o código no GitHub sob licença MIT, e algo que você realmente pode rodar.',
   },
   notFound: {
     title: 'Página não encontrada',
@@ -112,6 +112,9 @@ export const pt = {
     whatsapp: '+55 19 98942-8861',
     timezoneLabel: 'Fuso horário',
     timezone: 'UTC-3, horário flexível',
+  },
+  footer: {
+    lastUpdated: 'Última atualização',
   },
   project: {
     whatItIs: 'O que é',

@@ -86,7 +86,7 @@ export const en = {
   },
   work: {
     heading: 'Work',
-    empty: 'Demos are landing here as they are built. Each one ships with a video, the source on GitHub under MIT, and something you can actually run.',
+    empty: 'Systems with a video where one exists, the source on GitHub under MIT, and something you can actually run.',
   },
   notFound: {
     title: 'Page not found',
@@ -110,6 +110,9 @@ export const en = {
     email: 'spavdigital@gmail.com',
     timezoneLabel: 'Timezone',
     timezone: 'UTC-3, flexible hours',
+  },
+  footer: {
+    lastUpdated: 'Last updated',
   },
   project: {
     whatItIs: 'What it is',
