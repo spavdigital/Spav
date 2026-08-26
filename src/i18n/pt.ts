@@ -13,6 +13,7 @@ export const pt = {
     eyebrow: 'Disponível para contratação',
     h1: 'Sistemas de jogo autoritativos no servidor, sob medida.',
     sub: 'Eu escrevo os sistemas que rodam no seu servidor — empregos, economias, comportamento de NPCs, persistência de dados, validação anti-exploit — para FiveM, Roblox e Minecraft.',
+    proof: 'Desenvolvedor líder de um roguelite não lançado para um estúdio (sob NDA) · 3 demos open-source sob MIT · 5 sistemas de teste técnico para estúdios, documentados neste site',
     ctaPrimary: 'Falar no Discord',
     ctaSecondary: 'Ver os trabalhos',
     availability: {
@@ -86,7 +87,7 @@ export const pt = {
   },
   work: {
     heading: 'Trabalhos',
-    empty: 'Sistemas com vídeo onde já existe, o código no GitHub sob licença MIT, e algo que você realmente pode rodar.',
+    empty: 'Cada entrada nomeia o sistema, diz qual foi o meu papel e mostra o trecho de código que carregou a decisão mais difícil. As demos open-source linkam o código MIT e uma place jogável; os testes técnicos para estúdios são descritos sem nomes de cliente nem assets deles.',
   },
   notFound: {
     title: 'Página não encontrada',
@@ -97,6 +98,7 @@ export const pt = {
     heading: 'Sobre',
     paragraphs: [
       'Eu construo sistemas de jogo em tempo integral. Antes disso, eu escrevia à noite enquanto trabalhava em outra área — agora é o trabalho inteiro.',
+      'Meu único crédito pago em produção até agora é como desenvolvedor líder de um roguelite não lançado para um estúdio sob NDA — framework central de gameplay, loop de run e progressão, e a camada de dados. Nome, código e assets estão sob NDA; posso explicar a arquitetura em termos gerais numa conversa.',
       'Me importo com as partes que o jogador nunca vê: validação que resiste quando alguém tenta quebrar, dados que sobrevivem a um restart do servidor, e código que o próximo desenvolvedor consegue ler.',
       'Baseado no Brasil, UTC-3. Disponível para tempo integral, meio período, por projeto, ou para uma correção pontual.',
     ],

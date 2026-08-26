@@ -23,6 +23,7 @@ const featuredWork = (await getCollection('work', ({ data }) => !data.draft && d
     <p class="eyebrow">{dict.home.eyebrow}</p>
     <h1>{dict.home.h1}</h1>
     <p class="sub">{dict.home.sub}</p>
+    <p class="proof">{dict.home.proof}</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#contact">{dict.home.ctaPrimary}</a>
       <a class="btn btn-secondary" href="/work">{dict.home.ctaSecondary}</a>
@@ -70,6 +71,15 @@ const featuredWork = (await getCollection('work', ({ data }) => !data.draft && d
 
   .hero h1 {
     max-width: 52rem;
+  }
+
+  .proof {
+    max-width: 40rem;
+    margin-top: 1rem;
+    font-family: ui-monospace, "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
   }
 
   .sub {

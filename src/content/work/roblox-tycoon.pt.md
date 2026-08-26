@@ -5,7 +5,7 @@ complexity: "Medium"
 summary: "Um tycoon para Roblox com autoridade no servidor: reivindicação atômica de plot, um único loop de renda controlado pelo servidor, e persistência em DataStore que sobrevive a uma falha no meio da sessão — nenhum script do cliente decide o que um jogador possui ou pode comprar."
 repoUrl: "https://github.com/spavdigital/roblox-tycoon"
 tags: ["Luau", "Rojo", "DataStoreService", "server-authoritative", "MIT"]
-order: 2
+order: 4
 draft: false
 lang: "pt"
 urlSlug: "roblox-tycoon"

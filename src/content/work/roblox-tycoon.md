@@ -5,7 +5,7 @@ complexity: "Medium"
 summary: "A server-authoritative Roblox tycoon: atomic plot claiming, a single server-driven income loop, and DataStore persistence that survives a mid-session failure — no client-side script decides what a player owns or can afford."
 repoUrl: "https://github.com/spavdigital/roblox-tycoon"
 tags: ["Luau", "Rojo", "DataStoreService", "server-authoritative", "MIT"]
-order: 2
+order: 4
 draft: false
 lang: "en"
 urlSlug: "roblox-tycoon"

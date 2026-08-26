@@ -9,7 +9,7 @@ previewPosterUrl: "/work/npc-ai-card.jpg"
 repoUrl: "https://github.com/spavdigital/roblox-npc-ai"
 liveUrl: "https://www.roblox.com/games/120166913647612/NPC-AI-Demo-SPAV"
 tags: ["Luau", "Rojo", "PathfindingService", "server-authoritative", "MIT"]
-order: 3
+order: 6
 draft: false
 lang: "en"
 urlSlug: "roblox-npc-ai"

@@ -13,6 +13,7 @@ export const en = {
     eyebrow: 'Available for hire',
     h1: 'Server-authoritative game systems, built to spec.',
     sub: "I write the systems your server runs on — jobs, economies, NPC behaviour, data persistence, anti-exploit validation — for FiveM, Roblox and Minecraft.",
+    proof: 'Lead developer on an unreleased roguelite for a studio (under NDA) · 3 open-source demos under MIT · 5 studio trial systems, documented on this site',
     ctaPrimary: 'Talk on Discord',
     ctaSecondary: 'See the work',
     availability: {
@@ -86,7 +87,7 @@ export const en = {
   },
   work: {
     heading: 'Work',
-    empty: 'Systems with a video where one exists, the source on GitHub under MIT, and something you can actually run.',
+    empty: 'Every entry names the system, states my role, and shows the piece of code that carried the hardest decision. Open-source demos link to the MIT source and a playable place; studio trial tasks are described with client names and assets removed.',
   },
   notFound: {
     title: 'Page not found',
@@ -97,6 +98,7 @@ export const en = {
     heading: 'About',
     paragraphs: [
       'I build game systems full-time. Before that I wrote them at night while working in another field — now it is the whole job.',
+      'My one paid production credit so far is as lead developer on an unreleased roguelite for a studio under NDA — core gameplay framework, run and progression loop, and the data layer. Name, code and assets are under NDA; I am happy to walk through the architecture in general terms on a call.',
       'I care about the parts players never see: validation that holds when someone tries to break it, data that survives a server restart, and code the next developer can read.',
       'Based in Brazil, UTC-3. Available full-time, part-time, per project, or for a single fix.',
     ],
