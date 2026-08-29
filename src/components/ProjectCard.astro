@@ -18,10 +18,15 @@ interface Props {
 const { entry, href, dict, layout = 'band', eager = false } = Astro.props;
 const d = entry.data;
 
-// Media, in descending order of proof: a clip of it running, a still of it
-// running, and only then the code that makes it run. Nothing invents a
-// visual — the third branch renders the case's own source.
-const code = d.previewVideoUrl || d.coverImage ? null : firstCodeBlock(entry.body);
+const code = firstCodeBlock(entry.body);
+const hasMedia = Boolean(d.previewVideoUrl || d.coverImage);
+
+// Three columns — media | text | code — only when there is real media to put
+// in the first one. Without it the code excerpt is the cover and the card is
+// two columns, because an empty media slot is exactly the dishonest hole this
+// redesign exists to remove. A case flips to three columns on its own the day
+// previewVideoUrl or coverImage is filled in; nothing here is per-slug.
+const columns = layout === 'band' && hasMedia && code ? 3 : 2;
 
 // "Watch" points at the project page's own video block rather than straight at
 // the YouTube URL: it keeps the visitor on the site, and the embed is the
@@ -30,7 +35,7 @@ const watchHref = d.videoUrl ? `${href}#video` : undefined;
 const tags = d.tags.slice(0, 5);
 ---
 
-<article class:list={['project-card', 'card', `layout-${layout}`]}>
+<article class:list={['project-card', 'card', `layout-${layout}`, `cols-${columns}`]}>
   <div class="media">
     {d.previewVideoUrl ? (
       <>
@@ -54,7 +59,7 @@ const tags = d.tags.slice(0, 5);
         src={d.coverImage.src}
         alt={d.coverImage.alt}
         widths={[420, 720, 1040]}
-        sizes="(max-width: 780px) 100vw, 42vw"
+        sizes="(max-width: 780px) 100vw, 34vw"
         loading={eager ? 'eager' : 'lazy'}
       />
     ) : code ? (
@@ -90,6 +95,12 @@ const tags = d.tags.slice(0, 5);
       <a class="details" href={href}>{dict.card.readCase} &rarr;</a>
     </div>
   </div>
+
+  {columns === 3 && code && (
+    <div class="code-col">
+      <CodeCover code={code.code} lang={code.lang} label={dict.card.codeExcerpt} seed={entry.id} />
+    </div>
+  )}
 </article>
 
 <style>
@@ -103,8 +114,20 @@ const tags = d.tags.slice(0, 5);
 
   /* Wide row: cover on the left, everything else on the right. The cover is
      the first thing rendered and the first thing read on a narrow screen. */
-  .layout-band {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  /* Deliberately the same 1.15fr first track as the three-column card, so the
+     cover column starts and ends at the same place on every row down the page
+     whether it holds a clip or a code excerpt. The text then spans what would
+     have been the text + code tracks. */
+  .layout-band.cols-2 {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 2.35fr);
+    align-items: stretch;
+  }
+
+  /* media | text | code. The text column is the widest because it is the only
+     one that has to stay readable at a comfortable measure; the code column is
+     the narrowest because it is an excerpt, not a listing. */
+  .layout-band.cols-3 {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.35fr) minmax(0, 1fr);
     align-items: stretch;
   }
 
@@ -113,27 +136,39 @@ const tags = d.tags.slice(0, 5);
     grid-template-rows: auto 1fr;
   }
 
-  /* min-width: 0 on both columns is load-bearing: the cover renders
-     non-wrapping code, whose intrinsic width would otherwise blow the grid
-     track past the card and get the summary text clipped by overflow:hidden. */
-  .media {
+  /* min-width: 0 on every track is load-bearing: the code cover renders
+     non-wrapping code, and its intrinsic width would otherwise blow the grid
+     past the card and get the summary clipped by overflow: hidden. */
+  .media,
+  .code-col {
     position: relative;
     background: var(--color-surface-2);
     min-height: 0;
     min-width: 0;
+    /* Makes the column a query container so the code excerpt can size its
+       type to the track it actually got, instead of to the viewport. The same
+       card is ~590px wide in a two-column row and ~370px in three. */
+    container-type: inline-size;
+  }
+
+  .code-col {
+    border-left: 1px solid var(--color-border);
   }
 
   /* In a band the cover fills the row's full height, however tall the text
      column ends up; in a stack it keeps its 16/9 shape. */
-  .layout-band .media {
+  .layout-band .media,
+  .layout-band .code-col {
     height: 100%;
   }
 
-  .media :global(.code-cover) {
+  .media :global(.code-cover),
+  .code-col :global(.code-cover) {
     height: 100%;
   }
 
-  .layout-band .media :global(.code-cover) {
+  .layout-band .media :global(.code-cover),
+  .layout-band .code-col :global(.code-cover) {
     aspect-ratio: auto;
   }
 
@@ -176,6 +211,12 @@ const tags = d.tags.slice(0, 5);
     gap: 0.35rem;
   }
 
+  /* The two-column card's text track is wide enough to push the summary past
+     a comfortable measure, so cap the text itself rather than the track. */
+  .cols-2 .body > * {
+    max-width: 46rem;
+  }
+
   .meta {
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -187,6 +228,10 @@ const tags = d.tags.slice(0, 5);
   .title {
     margin: 0;
     font-size: 1.3rem;
+  }
+
+  .cols-3 .title {
+    font-size: 1.2rem;
   }
 
   .title a {
@@ -215,6 +260,10 @@ const tags = d.tags.slice(0, 5);
     margin: 0.35rem 0 0;
     color: var(--color-text-muted);
     font-size: 0.95rem;
+  }
+
+  .cols-3 .summary {
+    font-size: 0.92rem;
   }
 
   .tags {
@@ -252,8 +301,23 @@ const tags = d.tags.slice(0, 5);
     color: var(--color-accent-cyan);
   }
 
+  /* Below the three-column breakpoint the code column would be a 200px-wide
+     sliver of Luau, which is worse than not showing it: the media and the
+     summary are what carry the card at this width, and the full code is one
+     click away on the project page. */
+  @media (max-width: 1100px) {
+    .layout-band.cols-3 {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+
+    .code-col {
+      display: none;
+    }
+  }
+
   @media (max-width: 780px) {
-    .layout-band {
+    .layout-band.cols-2,
+    .layout-band.cols-3 {
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto 1fr;
     }
@@ -268,7 +332,8 @@ const tags = d.tags.slice(0, 5);
       padding: 1.25rem;
     }
 
-    .title {
+    .title,
+    .cols-3 .title {
       font-size: 1.15rem;
     }
   }

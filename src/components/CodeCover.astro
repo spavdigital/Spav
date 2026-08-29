@@ -79,7 +79,11 @@ const tint = 12 + (hash % 76); // 12%..87% of the way from violet to cyan
     border: 0;
     background: transparent !important;
     overflow: hidden;
-    font-size: 11px;
+    /* Fallback for anything without container queries, then sized to the
+       column: narrow tracks get smaller type and lose fewer characters per
+       line, wide ones get the full 11.5px. */
+    font-size: 10.5px;
+    font-size: clamp(9px, 2.55cqi, 11.5px);
     line-height: 1.45;
     /* No wrapping: a wrapped line in a code cover reads as broken code.
        coverExcerpt() already clipped anything too wide. */
