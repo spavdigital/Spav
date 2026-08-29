@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ImageGrid from '../../components/ImageGrid.astro';
+import { getDict } from '../../i18n';
+import { getCollection } from 'astro:content';
+
+const dict = getDict('pt');
+
+// The gallery is derived, never a parallel hand-kept list: it reads
+// screenshots[] off the work collection, so adding an image to a case adds it
+// here with no second edit and no chance of the two lists drifting apart.
+const entries = (await getCollection('work', ({ data }) => !data.draft && data.lang === 'pt')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const items = entries.flatMap((entry) =>
+  entry.data.screenshots.map((shot) => ({
+    src: shot.src,
+    alt: shot.alt,
+    caption: shot.caption ?? entry.data.title,
+  }))
+);
+---
+
+<BaseLayout
+  lang="pt"
+  dict={dict}
+  title="Galeria — Pedro Gabriel"
+  description={dict.gallery.intro}
+  enPath="/gallery"
+  ptPath="/pt/gallery"
+  noindex={items.length === 0}
+>
+  <section class="container section">
+    <h1>{dict.gallery.heading}</h1>
+    {items.length === 0 ? (
+      <p class="empty">{dict.gallery.empty}</p>
+    ) : (
+      <>
+        <p class="intro">{dict.gallery.intro}</p>
+        <ImageGrid
+          items={items}
+          columns={3}
+          labels={{ close: dict.gallery.close, prev: dict.gallery.prev, next: dict.gallery.next }}
+        />
+      </>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: 3rem 4rem;
+  }
+
+  .intro,
+  .empty {
+    max-width: 44rem;
+    color: var(--color-text-muted);
+  }
+</style>

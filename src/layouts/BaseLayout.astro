@@ -11,9 +11,12 @@ interface Props {
   description: string;
   enPath: string;
   ptPath: string;
+  /** Keeps a route that exists but has nothing to show yet out of search
+      results — currently only /gallery while screenshots[] is empty. */
+  noindex?: boolean;
 }
 
-const { lang, dict, title, description, enPath, ptPath } = Astro.props;
+const { lang, dict, title, description, enPath, ptPath, noindex = false } = Astro.props;
 const canonicalEn = new URL(enPath, Astro.site);
 const canonicalPt = new URL(ptPath, Astro.site);
 const canonical = lang === 'pt' ? canonicalPt : canonicalEn;
@@ -38,6 +41,7 @@ const personSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={canonicalEn} />

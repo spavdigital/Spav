@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getDict } from '../../i18n';
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import ImageGrid from '../../components/ImageGrid.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection(
@@ -30,8 +32,10 @@ const isEmbeddableVideo = entry.data.videoUrl?.includes('youtube.com/embed') || 
   ptPath={`/pt/work/${slug}`}
 >
   <article class="container project">
-    {entry.data.videoUrl && (
-      <div class="video-wrap">
+    {/* id="video" is the anchor the Work card's "Watch" button points at, so
+        the button lands on the embed instead of the top of the page. */}
+    {entry.data.videoUrl ? (
+      <div class="video-wrap" id="video">
         {isEmbeddableVideo ? (
           <iframe
             src={entry.data.videoUrl}
@@ -44,7 +48,17 @@ const isEmbeddableVideo = entry.data.videoUrl?.includes('youtube.com/embed') || 
           <video controls src={entry.data.videoUrl}></video>
         )}
       </div>
-    )}
+    ) : entry.data.coverImage ? (
+      <div class="video-wrap">
+        <Image
+          src={entry.data.coverImage.src}
+          alt={entry.data.coverImage.alt}
+          widths={[560, 880, 1320]}
+          sizes="(max-width: 720px) 100vw, 44rem"
+          loading="eager"
+        />
+      </div>
+    ) : null}
 
     <p class="meta">{entry.data.engine} · {entry.data.complexity}</p>
     <h1>{entry.data.title}</h1>
@@ -58,6 +72,16 @@ const isEmbeddableVideo = entry.data.videoUrl?.includes('youtube.com/embed') || 
       <h2>{dict.project.underTheHood}</h2>
       <Content />
     </section>
+
+    {entry.data.screenshots.length > 0 && (
+      <section class="shots">
+        <ImageGrid
+          items={entry.data.screenshots}
+          columns={2}
+          labels={{ close: dict.gallery.close, prev: dict.gallery.prev, next: dict.gallery.next }}
+        />
+      </section>
+    )}
 
     <section class="proof">
       {entry.data.liveUrl && (
@@ -131,6 +155,11 @@ const isEmbeddableVideo = entry.data.videoUrl?.includes('youtube.com/embed') || 
   section :global(pre) {
     font-size: 13px;
     overflow-x: auto;
+  }
+
+  .shots {
+    max-width: 44rem;
+    margin-inline: auto;
   }
 
   .proof {
