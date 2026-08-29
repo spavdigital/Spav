@@ -1,66 +1,163 @@
 ---
+import { Image } from 'astro:assets';
+import CodeCover from './CodeCover.astro';
+import { firstCodeBlock } from '../lib/work';
+import type { WorkEntry } from '../lib/work';
+import type { Dict } from '../i18n';
+
 interface Props {
+  entry: WorkEntry;
   href: string;
-  title: string;
-  engine: string;
-  complexity: string;
-  summary: string;
-  previewVideoUrl?: string;
-  previewPosterUrl?: string;
+  dict: Dict;
+  /** "band" = wide row (Work listing). "stack" = media over text (Home grid). */
+  layout?: 'band' | 'stack';
+  /** First card on the Work page is above the fold, so it loads eagerly. */
+  eager?: boolean;
 }
 
-const { href, title, engine, complexity, summary, previewVideoUrl, previewPosterUrl } = Astro.props;
+const { entry, href, dict, layout = 'band', eager = false } = Astro.props;
+const d = entry.data;
+
+// Media, in descending order of proof: a clip of it running, a still of it
+// running, and only then the code that makes it run. Nothing invents a
+// visual — the third branch renders the case's own source.
+const code = d.previewVideoUrl || d.coverImage ? null : firstCodeBlock(entry.body);
+
+// "Watch" points at the project page's own video block rather than straight at
+// the YouTube URL: it keeps the visitor on the site, and the embed is the
+// first thing on that page anyway.
+const watchHref = d.videoUrl ? `${href}#video` : undefined;
+const tags = d.tags.slice(0, 5);
 ---
 
-<a class="project-card card" href={href}>
-  {previewVideoUrl && (
-    <video
-      class="preview"
-      src={previewVideoUrl}
-      poster={previewPosterUrl}
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-    ></video>
-  )}
-  {previewVideoUrl && previewPosterUrl && (
-    <img class="preview preview-static" src={previewPosterUrl} alt="" loading="lazy" />
-  )}
-  <p class="meta">{engine} · {complexity}</p>
-  <h2>{title}</h2>
-  <p>{summary}</p>
-</a>
+<article class:list={['project-card', 'card', `layout-${layout}`]}>
+  <div class="media">
+    {d.previewVideoUrl ? (
+      <>
+        <video
+          class="preview"
+          src={d.previewVideoUrl}
+          poster={d.previewPosterUrl}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload={eager ? 'auto' : 'metadata'}
+        ></video>
+        {d.previewPosterUrl && (
+          <img class="preview preview-static" src={d.previewPosterUrl} alt="" loading="lazy" />
+        )}
+      </>
+    ) : d.coverImage ? (
+      <Image
+        class="preview"
+        src={d.coverImage.src}
+        alt={d.coverImage.alt}
+        widths={[420, 720, 1040]}
+        sizes="(max-width: 780px) 100vw, 42vw"
+        loading={eager ? 'eager' : 'lazy'}
+      />
+    ) : code ? (
+      <CodeCover code={code.code} lang={code.lang} label={dict.card.codeExcerpt} seed={entry.id} />
+    ) : null}
+  </div>
+
+  <div class="body">
+    <p class="meta">{d.engine} · {d.complexity}</p>
+    <h2 class="title"><a href={href}>{d.title}</a></h2>
+    <p class="summary">{d.summary}</p>
+
+    {tags.length > 0 && (
+      <ul class="tags">
+        {tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+    )}
+
+    <div class="actions">
+      {watchHref && (
+        <a class="btn btn-outline" href={watchHref}>{dict.card.watch}</a>
+      )}
+      {d.liveUrl && (
+        <a class="btn btn-primary" href={d.liveUrl} target="_blank" rel="noopener">
+          {dict.card.play}
+        </a>
+      )}
+      {d.repoUrl && (
+        <a class="btn btn-secondary" href={d.repoUrl} target="_blank" rel="noopener">
+          {dict.card.source}
+        </a>
+      )}
+      <a class="details" href={href}>{dict.card.readCase} &rarr;</a>
+    </div>
+  </div>
+</article>
 
 <style>
   .project-card {
-    display: block;
-    color: var(--color-text);
+    position: relative;
+    padding: 0;
     overflow: hidden;
+    display: grid;
+    transition: border-color 0.15s ease;
   }
 
-  .project-card:hover {
-    border-color: var(--color-accent-cyan);
-    text-decoration: none;
+  /* Wide row: cover on the left, everything else on the right. The cover is
+     the first thing rendered and the first thing read on a narrow screen. */
+  .layout-band {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: stretch;
+  }
+
+  .layout-stack {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
+  /* min-width: 0 on both columns is load-bearing: the cover renders
+     non-wrapping code, whose intrinsic width would otherwise blow the grid
+     track past the card and get the summary text clipped by overflow:hidden. */
+  .media {
+    position: relative;
+    background: var(--color-surface-2);
+    min-height: 0;
+    min-width: 0;
+  }
+
+  /* In a band the cover fills the row's full height, however tall the text
+     column ends up; in a stack it keeps its 16/9 shape. */
+  .layout-band .media {
+    height: 100%;
+  }
+
+  .media :global(.code-cover) {
+    height: 100%;
+  }
+
+  .layout-band .media :global(.code-cover) {
+    aspect-ratio: auto;
   }
 
   .preview {
-    width: calc(100% + 3rem);
-    margin: -1.5rem -1.5rem 1rem;
+    width: 100%;
+    height: 100%;
     display: block;
-    aspect-ratio: 16 / 9;
     object-fit: cover;
     background: var(--color-surface-2);
+  }
+
+  .layout-stack .preview,
+  .layout-stack .media :global(.code-cover) {
+    aspect-ratio: 16 / 9;
+    height: auto;
   }
 
   .preview-static {
     display: none;
   }
 
-  /* Users who've asked for less motion get the poster frame only — the
-     video is removed from the render tree (not just paused), which stops
-     browsers from decoding it in the background. */
+  /* Users who asked for less motion get the poster frame only — the video is
+     removed from the render tree (not just paused), which stops browsers from
+     decoding it in the background. */
   @media (prefers-reduced-motion: reduce) {
     video.preview {
       display: none;
@@ -71,11 +168,108 @@ const { href, title, engine, complexity, summary, previewVideoUrl, previewPoster
     }
   }
 
+  .body {
+    min-width: 0;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
   .meta {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--color-text-muted);
-    margin-bottom: 0.5rem;
+    margin: 0;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  .title a {
+    color: var(--color-text);
+  }
+
+  .title a:hover {
+    color: var(--color-accent-cyan);
+    text-decoration: none;
+  }
+
+  /* Whole-card click target, without nesting <a> inside <a>: the title link is
+     stretched over the card, and the action buttons are lifted above it. */
+  .title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .project-card:hover {
+    border-color: var(--color-accent-cyan);
+  }
+
+  .summary {
+    margin: 0.35rem 0 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+
+  .tags {
+    margin: 0.9rem 0 0;
+  }
+
+  .tags li {
+    font-size: 0.72rem;
+    padding: 0.15rem 0.55rem;
+  }
+
+  .actions {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+  }
+
+  .actions .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .details {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+  }
+
+  .details:hover {
+    color: var(--color-accent-cyan);
+  }
+
+  @media (max-width: 780px) {
+    .layout-band {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+    }
+
+    .layout-band .media,
+    .layout-band .media :global(.code-cover) {
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+
+    .body {
+      padding: 1.25rem;
+    }
+
+    .title {
+      font-size: 1.15rem;
+    }
   }
 </style>

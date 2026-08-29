@@ -116,6 +116,16 @@ img {
   filter: brightness(1.08);
 }
 
+.btn-outline {
+  background: color-mix(in srgb, var(--color-accent-cyan) 12%, transparent);
+  color: var(--color-accent-cyan);
+  border: 1px solid var(--color-accent-cyan);
+}
+
+.btn-outline:hover {
+  background: color-mix(in srgb, var(--color-accent-cyan) 22%, transparent);
+}
+
 .btn-secondary {
   background: var(--color-surface);
   color: var(--color-text);

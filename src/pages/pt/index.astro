@@ -4,11 +4,12 @@ import EnginesAndProcess from '../../components/EnginesAndProcess.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { getDict } from '../../i18n';
 import { getCollection } from 'astro:content';
+import { sortByMediaThenOrder } from '../../lib/work';
 
 const dict = getDict('pt');
-const featuredWork = (await getCollection('work', ({ data }) => !data.draft && data.lang === 'pt'))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
+const featuredWork = sortByMediaThenOrder(
+  await getCollection('work', ({ data }) => !data.draft && data.lang === 'pt')
+).slice(0, 3);
 ---
 
 <BaseLayout
@@ -39,6 +40,7 @@ const featuredWork = (await getCollection('work', ({ data }) => !data.draft && d
       ))}
     </div>
     <p class="note">{dict.home.availability.note}</p>
+    <p class="hours">{dict.home.availability.hours}</p>
   </section>
 
   <EnginesAndProcess dict={dict} />
@@ -49,13 +51,10 @@ const featuredWork = (await getCollection('work', ({ data }) => !data.draft && d
       <div class="grid">
         {featuredWork.map((entry) => (
           <ProjectCard
+            entry={entry}
             href={`/pt/work/${entry.data.urlSlug ?? entry.id}`}
-            title={entry.data.title}
-            engine={entry.data.engine}
-            complexity={entry.data.complexity}
-            summary={entry.data.summary}
-            previewVideoUrl={entry.data.previewVideoUrl}
-            previewPosterUrl={entry.data.previewPosterUrl}
+            dict={dict}
+            layout="stack"
           />
         ))}
       </div>
@@ -114,15 +113,28 @@ const featuredWork = (await getCollection('work', ({ data }) => !data.draft && d
     margin-top: 1.5rem;
     color: var(--color-text-muted);
     font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+  }
+
+  /* Working hours were only in the footer of a project page before, which is
+     the last place a studio checking timezone overlap would look. */
+  .hours {
+    margin: 0;
+    font-family: ui-monospace, "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+    font-size: 0.82rem;
+    color: var(--color-accent-cyan);
   }
 
   .selected-work {
     padding-block: 2rem 4rem;
   }
 
+  /* auto-fit + 1fr so three featured cards fill the row instead of leaving
+     a dead third of the page on the right, and min() so a single card never
+     forces horizontal overflow on a 320px screen. */
   .selected-work .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(16rem, 26rem));
+    grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
     gap: 1.5rem;
     margin-top: 1.25rem;
   }
