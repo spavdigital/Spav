@@ -3,7 +3,8 @@ title: "Loop de round — intermission → arena → condição de vitória → 
 engine: "Roblox"
 complexity: "Medium"
 summary: "Máquina de estados de round controlada pelo servidor para um jogo 1-contra-muitos: jogadores esperam no lobby, são levados para uma arena construída inteiramente por código, vencem ao matar um alvo e voltam para a intermission. Quem entra tarde ou respawna é enviado para o round em andamento em vez de ficar preso. Feito em um dia como teste de estúdio."
-tags: ["Luau", "Rojo", "state-machine", "server-authoritative", "round-based"]
+repoUrl: "https://github.com/spavdigital/roblox-round-loop"
+tags: ["Luau", "Rojo", "state-machine", "server-authoritative", "round-based", "MIT"]
 order: 5
 draft: false
 lang: "pt"

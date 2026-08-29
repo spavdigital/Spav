@@ -3,7 +3,8 @@ title: "Sprint e stamina — onde mora a autoridade"
 engine: "Roblox"
 complexity: "Small"
 summary: "Um sistema de sprint em que o cliente só pode pedir para correr e nunca toca no próprio WalkSpeed. O servidor controla a stamina, valida cada pedido, descarta payloads malformados em silêncio e replica uma aura de sprint para todos verem. Pequeno de propósito: é o padrão anti-exploit em que todos os outros sistemas desta página se apoiam."
-tags: ["Luau", "anti-exploit", "RemoteEvent", "server-authoritative"]
+repoUrl: "https://github.com/spavdigital/roblox-sprint-stamina"
+tags: ["Luau", "anti-exploit", "RemoteEvent", "server-authoritative", "MIT"]
 order: 8
 draft: false
 lang: "pt"

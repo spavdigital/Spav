@@ -3,7 +3,8 @@ title: "Economy service — session lock, fencing token e migração de schema"
 engine: "Roblox"
 complexity: "High"
 summary: "Módulo de economia e persistência com autoridade no servidor: session lock em MemoryStore com fencing token gravado no perfil, escritas atômicas via UpdateAsync, migração de schema, renda offline com teto, prestige e um gate de orçamento de requisições do DataStore. Escrito para um teste de estúdio; acompanha suíte de spec e spec de runtime."
-tags: ["Luau", "--!strict", "DataStoreService", "MemoryStoreService", "session-lock", "tested"]
+repoUrl: "https://github.com/spavdigital/roblox-economy-service"
+tags: ["Luau", "--!strict", "DataStoreService", "MemoryStoreService", "session-lock", "tested", "MIT"]
 order: 3
 draft: false
 lang: "pt"

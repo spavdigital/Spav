@@ -3,7 +3,8 @@ title: "R6 character creation — weighted rolls, manual rig scaling, session-lo
 engine: "Roblox"
 complexity: "High"
 summary: "Main menu → mode → slot → character creation → play, with the character restored on rejoin. Height and weight are rolled server-side against probability tables from the client's design doc, an R6 rig is resized by hand (the engine's scale values are R15-only), and profiles persist through a session-locked DataStore layer. Studio trial; 400,000-roll distribution test runs outside Roblox."
-tags: ["Luau", "Rojo", "DataStoreService", "R6", "UI-flow", "tested"]
+repoUrl: "https://github.com/spavdigital/roblox-r6-character-creation"
+tags: ["Luau", "Rojo", "DataStoreService", "R6", "UI-flow", "tested", "MIT"]
 order: 7
 draft: false
 lang: "en"
