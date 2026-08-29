@@ -9,10 +9,17 @@ interface Props {
   label: string;
   /** Anything stable and per-case (the slug); only used to pick a tint. */
   seed?: string;
+  /**
+   * "cover" = the card's visual stand-in for missing media: decorative, hidden
+   * from assistive tech, carries the honesty chip.
+   * "panel" = the code the visitor switched to on purpose: exposed to
+   * assistive tech, no chip (the toggle already says "Code"), more lines.
+   */
+  variant?: 'cover' | 'panel';
 }
 
-const { code, lang, label, seed = '' } = Astro.props;
-const excerpt = coverExcerpt(code);
+const { code, lang, label, seed = '', variant = 'cover' } = Astro.props;
+const excerpt = coverExcerpt(code, variant === 'panel' ? 26 : 20);
 
 // Eight code covers in one column would otherwise read as one undifferentiated
 // block. The tint is a deterministic mix between the two brand accents — so it
@@ -39,11 +46,15 @@ const tint = 12 + (hash % 76); // 12%..87% of the way from violet to cyan
   scanning the Work list wants the title and summary, not thirteen lines of
   Luau read aloud per card.
 */}
-<div class="code-cover" aria-hidden="true" style={`--cover-tint:${tint}%`}>
+<div
+  class:list={['code-cover', `is-${variant}`]}
+  aria-hidden={variant === 'cover' ? 'true' : undefined}
+  style={`--cover-tint:${tint}%`}
+>
   <div class="code-scroll">
     <Code code={excerpt} lang={lang as any} theme="github-dark" />
   </div>
-  <span class="chip">{label}</span>
+  {variant === 'cover' && <span class="chip">{label}</span>}
 </div>
 
 <style>
@@ -69,6 +80,31 @@ const tint = 12 + (hash % 76); // 12%..87% of the way from violet to cyan
   .code-scroll {
     padding: 0.9rem 1rem 0;
     height: 100%;
+  }
+
+  /* Inside the card body the panel sits flush with the surrounding text
+     rhythm, not against the card edge, so it gets its own frame. */
+  .is-panel {
+    aspect-ratio: auto;
+    height: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--radius) - 0.25rem);
+    overflow: hidden;
+  }
+
+  .is-panel .code-scroll {
+    padding: 0.7rem 0.85rem 0;
+  }
+
+  /* The panel is content the visitor asked to read, not a decorative cover,
+     so its edge fades are narrower — they should suggest a crop, not eat a
+     word and a half off every line. */
+  .is-panel::before {
+    width: 2rem;
+  }
+
+  .is-panel::after {
+    height: 28%;
   }
 
   /* :global because <Code> renders its own <pre>/<code> from another

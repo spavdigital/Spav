@@ -101,6 +101,9 @@ export const pt = {
     source: 'Código-fonte',
     readCase: 'Ler o case',
     codeExcerpt: 'Trecho do código',
+    tabAbout: 'O que é',
+    tabCode: 'Código',
+    tabGroup: 'Mostrar descrição ou trecho do código',
   },
   gallery: {
     heading: 'Galeria',

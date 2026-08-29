@@ -101,6 +101,9 @@ export const en = {
     source: 'Source',
     readCase: 'Read the case',
     codeExcerpt: 'Source excerpt',
+    tabAbout: 'What it is',
+    tabCode: 'Code',
+    tabGroup: 'Show description or source excerpt',
   },
   gallery: {
     heading: 'Gallery',

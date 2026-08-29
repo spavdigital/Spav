@@ -76,13 +76,6 @@ img {
   padding: 0 1.5rem;
 }
 
-/* The Work listing only. Its content is cards, not prose, and at 72rem a
-   three-column card leaves each column too narrow to earn its place. Every
-   other page keeps the site's 72rem measure. */
-.container-wide {
-  max-width: 84rem;
-}
-
 .eyebrow {
   display: inline-block;
   font-family: var(--font-text);

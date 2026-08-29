@@ -21,12 +21,16 @@ const d = entry.data;
 const code = firstCodeBlock(entry.body);
 const hasMedia = Boolean(d.previewVideoUrl || d.coverImage);
 
-// Three columns — media | text | code — only when there is real media to put
-// in the first one. Without it the code excerpt is the cover and the card is
-// two columns, because an empty media slot is exactly the dishonest hole this
-// redesign exists to remove. A case flips to three columns on its own the day
-// previewVideoUrl or coverImage is filled in; nothing here is per-slug.
-const columns = layout === 'band' && hasMedia && code ? 3 : 2;
+// The card is always two containers: cover, then text. The text container's
+// middle swaps between the summary and a source excerpt — but only on a case
+// that has real media, because on the others the excerpt is already the cover
+// and a toggle would offer the visitor the thing they are looking at.
+//
+// Meta, title, tags and the action buttons deliberately stay put through the
+// swap: a card that loses its title and its Play button when you press "Code"
+// is no longer a card, it is a code viewer with no way back.
+const swappable = layout === 'band' && hasMedia && code;
+const panelId = `code-${entry.id.replace(/[^a-z0-9]+/gi, '-')}`;
 
 // "Watch" points at the project page's own video block rather than straight at
 // the YouTube URL: it keeps the visitor on the site, and the embed is the
@@ -35,7 +39,7 @@ const watchHref = d.videoUrl ? `${href}#video` : undefined;
 const tags = d.tags.slice(0, 5);
 ---
 
-<article class:list={['project-card', 'card', `layout-${layout}`, `cols-${columns}`]}>
+<article class:list={['project-card', 'card', `layout-${layout}`]}>
   <div class="media">
     {d.previewVideoUrl ? (
       <>
@@ -59,7 +63,7 @@ const tags = d.tags.slice(0, 5);
         src={d.coverImage.src}
         alt={d.coverImage.alt}
         widths={[420, 720, 1040]}
-        sizes="(max-width: 780px) 100vw, 34vw"
+        sizes="(max-width: 780px) 100vw, 42vw"
         loading={eager ? 'eager' : 'lazy'}
       />
     ) : code ? (
@@ -68,9 +72,36 @@ const tags = d.tags.slice(0, 5);
   </div>
 
   <div class="body">
-    <p class="meta">{d.engine} · {d.complexity}</p>
+    <div class="head">
+      <p class="meta">{d.engine} · {d.complexity}</p>
+      {swappable && (
+        <div class="swap-tabs" role="group" aria-label={dict.card.tabGroup} data-swap-tabs>
+          <button type="button" data-swap="about" aria-pressed="true" aria-controls={panelId}>
+            {dict.card.tabAbout}
+          </button>
+          <button type="button" data-swap="code" aria-pressed="false" aria-controls={panelId}>
+            {dict.card.tabCode}
+          </button>
+        </div>
+      )}
+    </div>
+
     <h2 class="title"><a href={href}>{d.title}</a></h2>
-    <p class="summary">{d.summary}</p>
+
+    <div class="swap" id={panelId}>
+      <p class="summary" data-panel="about">{d.summary}</p>
+      {swappable && code && (
+        <div class="code-panel" data-panel="code" hidden>
+          <CodeCover
+            code={code.code}
+            lang={code.lang}
+            label={dict.card.codeExcerpt}
+            seed={entry.id}
+            variant="panel"
+          />
+        </div>
+      )}
+    </div>
 
     {tags.length > 0 && (
       <ul class="tags">
@@ -95,13 +126,31 @@ const tags = d.tags.slice(0, 5);
       <a class="details" href={href}>{dict.card.readCase} &rarr;</a>
     </div>
   </div>
-
-  {columns === 3 && code && (
-    <div class="code-col">
-      <CodeCover code={code.code} lang={code.lang} label={dict.card.codeExcerpt} seed={entry.id} />
-    </div>
-  )}
 </article>
+
+<script>
+  // The tabs are hidden until this runs, so a visitor without JS never sees a
+  // control that does nothing — they get the summary, which is the text that
+  // matters and the text that gets indexed.
+  document.querySelectorAll<HTMLElement>('[data-swap-tabs]').forEach((group) => {
+    const card = group.closest('article');
+    if (!card) return;
+    const panels = card.querySelectorAll<HTMLElement>('[data-panel]');
+    const buttons = group.querySelectorAll<HTMLButtonElement>('button[data-swap]');
+
+    group.dataset.ready = 'true';
+
+    buttons.forEach((button) =>
+      button.addEventListener('click', () => {
+        const wanted = button.dataset.swap;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.swap === wanted)));
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.panel !== wanted;
+        });
+      })
+    );
+  });
+</script>
 
 <style>
   .project-card {
@@ -112,22 +161,10 @@ const tags = d.tags.slice(0, 5);
     transition: border-color 0.15s ease;
   }
 
-  /* Wide row: cover on the left, everything else on the right. The cover is
-     the first thing rendered and the first thing read on a narrow screen. */
-  /* Deliberately the same 1.15fr first track as the three-column card, so the
-     cover column starts and ends at the same place on every row down the page
-     whether it holds a clip or a code excerpt. The text then spans what would
-     have been the text + code tracks. */
-  .layout-band.cols-2 {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 2.35fr);
-    align-items: stretch;
-  }
-
-  /* media | text | code. The text column is the widest because it is the only
-     one that has to stay readable at a comfortable measure; the code column is
-     the narrowest because it is an excerpt, not a listing. */
-  .layout-band.cols-3 {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.35fr) minmax(0, 1fr);
+  /* Two containers: cover, then text. The cover is the first thing rendered
+     and the first thing read on a narrow screen. */
+  .layout-band {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     align-items: stretch;
   }
 
@@ -136,39 +173,28 @@ const tags = d.tags.slice(0, 5);
     grid-template-rows: auto 1fr;
   }
 
-  /* min-width: 0 on every track is load-bearing: the code cover renders
-     non-wrapping code, and its intrinsic width would otherwise blow the grid
-     past the card and get the summary clipped by overflow: hidden. */
-  .media,
-  .code-col {
+  /* min-width: 0 is load-bearing: the cover renders non-wrapping code, and its
+     intrinsic width would otherwise blow the grid track past the card and get
+     the summary clipped by overflow: hidden. */
+  .media {
     position: relative;
     background: var(--color-surface-2);
     min-height: 0;
     min-width: 0;
-    /* Makes the column a query container so the code excerpt can size its
-       type to the track it actually got, instead of to the viewport. The same
-       card is ~590px wide in a two-column row and ~370px in three. */
+    /* Query container so the code excerpt sizes its type to the column it got
+       rather than to the viewport. */
     container-type: inline-size;
   }
 
-  .code-col {
-    border-left: 1px solid var(--color-border);
-  }
-
-  /* In a band the cover fills the row's full height, however tall the text
-     column ends up; in a stack it keeps its 16/9 shape. */
-  .layout-band .media,
-  .layout-band .code-col {
+  .layout-band .media {
     height: 100%;
   }
 
-  .media :global(.code-cover),
-  .code-col :global(.code-cover) {
+  .media :global(.code-cover) {
     height: 100%;
   }
 
-  .layout-band .media :global(.code-cover),
-  .layout-band .code-col :global(.code-cover) {
+  .layout-band .media :global(.code-cover) {
     aspect-ratio: auto;
   }
 
@@ -209,12 +235,14 @@ const tags = d.tags.slice(0, 5);
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+    container-type: inline-size;
   }
 
-  /* The two-column card's text track is wide enough to push the summary past
-     a comfortable measure, so cap the text itself rather than the track. */
-  .cols-2 .body > * {
-    max-width: 46rem;
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
   .meta {
@@ -225,13 +253,50 @@ const tags = d.tags.slice(0, 5);
     margin: 0;
   }
 
+  /* Hidden until the script marks the group ready — no dead control without
+     JS, and no flash of a control that is about to work. */
+  .swap-tabs {
+    position: relative;
+    z-index: 1;
+    display: none;
+    flex-shrink: 0;
+    gap: 0.15rem;
+    padding: 0.15rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-bg);
+  }
+
+  .swap-tabs[data-ready] {
+    display: inline-flex;
+  }
+
+  .swap-tabs button {
+    border: 0;
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    background: transparent;
+    color: var(--color-text-muted);
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .swap-tabs button:hover {
+    color: var(--color-text);
+  }
+
+  .swap-tabs button[aria-pressed='true'] {
+    background: var(--color-surface-2);
+    color: var(--color-text);
+  }
+
   .title {
     margin: 0;
     font-size: 1.3rem;
-  }
-
-  .cols-3 .title {
-    font-size: 1.2rem;
   }
 
   .title a {
@@ -244,7 +309,7 @@ const tags = d.tags.slice(0, 5);
   }
 
   /* Whole-card click target, without nesting <a> inside <a>: the title link is
-     stretched over the card, and the action buttons are lifted above it. */
+     stretched over the card, and the tabs and buttons are lifted above it. */
   .title a::after {
     content: '';
     position: absolute;
@@ -256,14 +321,29 @@ const tags = d.tags.slice(0, 5);
     border-color: var(--color-accent-cyan);
   }
 
+  /* One reserved area for both states. */
+  .swap {
+    margin-top: 0.35rem;
+    min-height: 8.5rem;
+  }
+
+  /* On a card that actually has the toggle, both states reserve the same
+     height, so pressing "Code" swaps the content without moving the seven
+     cards below it down the page. Cards without the toggle keep the smaller
+     reserve and stay as compact as before. */
+  .project-card:has(.swap-tabs[data-ready]) .swap {
+    min-height: 12rem;
+  }
+
   .summary {
-    margin: 0.35rem 0 0;
+    margin: 0;
     color: var(--color-text-muted);
     font-size: 0.95rem;
   }
 
-  .cols-3 .summary {
-    font-size: 0.92rem;
+  .code-panel {
+    height: 12rem;
+    container-type: inline-size;
   }
 
   .tags {
@@ -301,23 +381,8 @@ const tags = d.tags.slice(0, 5);
     color: var(--color-accent-cyan);
   }
 
-  /* Below the three-column breakpoint the code column would be a 200px-wide
-     sliver of Luau, which is worse than not showing it: the media and the
-     summary are what carry the card at this width, and the full code is one
-     click away on the project page. */
-  @media (max-width: 1100px) {
-    .layout-band.cols-3 {
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    }
-
-    .code-col {
-      display: none;
-    }
-  }
-
   @media (max-width: 780px) {
-    .layout-band.cols-2,
-    .layout-band.cols-3 {
+    .layout-band {
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto 1fr;
     }
@@ -332,9 +397,13 @@ const tags = d.tags.slice(0, 5);
       padding: 1.25rem;
     }
 
-    .title,
-    .cols-3 .title {
+    .title {
       font-size: 1.15rem;
+    }
+
+    .head {
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
   }
 </style>
