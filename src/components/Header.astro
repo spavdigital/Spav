@@ -53,7 +53,19 @@ const prefix = lang === 'pt' ? '/pt' : '';
       <a href={lang === 'pt' ? '/pt' : '/'}>{dict.nav.home}</a>
       <a href={`${prefix}/work`}>{dict.nav.work}</a>
       <a href={`${prefix}/services`}>{dict.nav.services}</a>
+      <a href={`${prefix}/rates`}>{dict.nav.rates}</a>
       <a href={`${prefix}/about`}>{dict.nav.about}</a>
+      {/*
+        Gallery is built and routed at /gallery and /pt/gallery, but it is
+        derived from screenshots[] on the work collection and no case has any
+        yet — linking it would send visitors to an empty page.
+
+        To turn it on: add screenshots to at least one case's frontmatter
+        (both the .md and the .pt.md), then uncomment the line below. Nothing
+        else needs to change; the page and the nav label already exist.
+
+        <a href={`${prefix}/gallery`}>{dict.nav.gallery}</a>
+      */}
     </nav>
     <LangSwitch lang={lang} enPath={enPath} ptPath={ptPath} />
   </div>
@@ -108,14 +120,22 @@ const prefix = lang === 'pt' ? '/pt' : '';
     color: var(--color-accent-cyan);
   }
 
+  /* Five nav items no longer fit on one phone row next to the logo and the
+     language switch, so below 640px the header wraps: logo and language on
+     the first row, the nav across the full width of the second. */
   @media (max-width: 640px) {
     .inner {
+      flex-wrap: wrap;
       gap: 0.75rem;
     }
 
     .site-nav {
-      gap: 0.65rem;
-      font-size: 0.8rem;
+      order: 3;
+      width: 100%;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      padding-top: 0.15rem;
     }
 
     .logo-full {

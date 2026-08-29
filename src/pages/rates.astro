@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getDict } from '../i18n';
+
+const dict = getDict('en');
+const r = dict.rates;
+---
+
+<BaseLayout
+  lang="en"
+  dict={dict}
+  title="Rates & terms — Pedro Gabriel"
+  description={r.intro}
+  enPath="/rates"
+  ptPath="/pt/rates"
+>
+  <section class="container section">
+    <h1>{r.heading}</h1>
+    <p class="intro">{r.intro}</p>
+
+    <div class="col">
+      <div class="card">
+        <h2>{r.currency.heading}</h2>
+        <p>{r.currency.body}</p>
+      </div>
+
+      {/* The single most useful line on the page. It is styled as a callout
+          rather than a list item because it is the one term that ends a
+          conversation before it starts, and burying it costs real days. */}
+      <div class="card callout">
+        <h2>{r.robux.heading}</h2>
+        <p>{r.robux.body}</p>
+      </div>
+
+      <div class="card">
+        <h2>{r.structure.heading}</h2>
+        <ul>
+          {r.structure.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>{r.engagements.heading}</h2>
+        <p>{r.engagements.body}</p>
+      </div>
+
+      <div class="card">
+        <h2>{r.tests.heading}</h2>
+        <p>{r.tests.body}</p>
+        <p class="inline-link"><a href="/work">{dict.home.selectedWork.cta} &rarr;</a></p>
+      </div>
+
+      <div class="card">
+        <h2>{r.quotes.heading}</h2>
+        <p>{r.quotes.body}</p>
+      </div>
+
+      <div class="card">
+        <h2>{r.firstMessage.heading}</h2>
+        <p>{r.firstMessage.intro}</p>
+        <ol>
+          {r.firstMessage.items.map((item) => <li>{item}</li>)}
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2>{r.hours.heading}</h2>
+        <p class="hours">{r.hours.body}</p>
+      </div>
+    </div>
+
+    <p class="cta"><a class="btn btn-primary" href="#contact">{r.cta}</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: 3rem 4rem;
+  }
+
+  .intro {
+    max-width: 44rem;
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+  }
+
+  /* Two columns from 900px so the page reads as a short reference card
+     instead of a long scroll; the Robux term spans both because it is the
+     one line that has to be impossible to skim past. */
+  .col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+    align-items: start;
+    gap: 1rem;
+    max-width: 60rem;
+    margin-top: 2rem;
+  }
+
+  .callout {
+    grid-column: 1 / -1;
+  }
+
+  .col h2 {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .col p {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  .col ul,
+  .col ol {
+    margin: 0.5rem 0 0;
+    padding-left: 1.2rem;
+    color: var(--color-text-muted);
+  }
+
+  .col li {
+    margin-bottom: 0.4rem;
+  }
+
+  .callout {
+    border-color: var(--color-accent-violet);
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-accent-violet) 14%, var(--color-surface)),
+      var(--color-surface)
+    );
+  }
+
+  .callout h2 {
+    color: var(--color-text);
+  }
+
+  .callout p {
+    color: var(--color-text);
+  }
+
+  .inline-link {
+    margin-top: 0.75rem !important;
+    font-size: 0.9rem;
+  }
+
+  .hours {
+    font-family: ui-monospace, "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+    font-size: 0.88rem;
+  }
+
+  .cta {
+    margin-top: 2rem;
+  }
+</style>
