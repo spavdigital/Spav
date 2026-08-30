@@ -137,8 +137,8 @@ export const en = {
       body: 'One-off tasks, ongoing maintenance, part-time and full-time. There is no minimum project size — a two-hour fix is welcome work, and quoting it honestly costs me nothing.',
     },
     tests: {
-      heading: 'No unpaid technical tests',
-      body: 'I do not build a system for free to prove I can build systems. Instead: eight open-source projects under MIT that you and your team can read right now, and a call where I walk through the reasoning behind any of them.',
+      heading: 'Unpaid technical tests, on one condition',
+      body: "I'll build for free if the code gets to become public portfolio afterward — that's how the eight open-source projects under MIT on this page came to exist. If the scope requires staying locked behind an NDA with no way out, it's paid work.",
     },
     quotes: {
       heading: 'Quotes',

@@ -137,8 +137,8 @@ export const pt = {
       body: 'Tarefa avulsa, manutenção contínua, meio período e tempo integral. Não existe projeto pequeno demais — uma correção de duas horas é trabalho bem-vindo, e orçar isso com honestidade não me custa nada.',
     },
     tests: {
-      heading: 'Sem teste técnico não remunerado',
-      body: 'Eu não construo um sistema de graça para provar que sei construir sistemas. Em vez disso: oito projetos open-source sob MIT que você e seu time podem ler agora, e uma conversa em que eu explico o raciocínio por trás de qualquer um deles.',
+      heading: 'Teste técnico não remunerado, com uma condição',
+      body: 'Eu topo construir sem remuneração se o código puder virar portfólio público depois — é assim que nasceram os oito projetos open-source sob MIT que você e seu time podem ler agora. Se o escopo exige ficar preso a um NDA sem essa saída, é trabalho pago.',
     },
     quotes: {
       heading: 'Orçamento',
