@@ -12,6 +12,10 @@ urlSlug: "roblox-tycoon"
 coverImage:
   src: "./media/roblox-tycoon/cover.jpg"
   alt: "Um plot de tycoon reivindicado com três tipos de dropper lado a lado e uma pilha de moedas mostrando o cash acumulado"
+screenshots:
+  - src: "./media/roblox-tycoon/cover.jpg"
+    alt: "Um plot de tycoon reivindicado com três tipos de dropper lado a lado e uma pilha de moedas mostrando o cash acumulado"
+    caption: "Tycoon — plot reivindicado, droppers gerando renda"
 ---
 
 Reivindicar um plot parece trivial — checar se está livre, atribuir — até dois jogadores acionarem o `ProximityPrompt` no mesmo frame. `claimPlot` roda de forma síncrona até o fim, sem nenhum `yield` no meio: o modelo de execução single-threaded do Luau garante que o ler-e-escrever (checar `plotOwners[plot]`, depois setá-lo) nunca pode ser interrompido pela reivindicação de outro jogador. Esse é o truque inteiro, e ele só se sustenta porque nada dentro da função espera por algo.

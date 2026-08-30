@@ -12,6 +12,10 @@ urlSlug: "roblox-sprint-stamina"
 coverImage:
   src: "./media/roblox-sprint-stamina/cover.jpg"
   alt: "Um personagem com o contorno de aura de sprint replicado, com a barra de stamina visivelmente reduzida abaixo"
+screenshots:
+  - src: "./media/roblox-sprint-stamina/cover.jpg"
+    alt: "Um personagem com o contorno de aura de sprint replicado, com a barra de stamina visivelmente reduzida abaixo"
+    caption: "Sprint e stamina — a aura no meio do sprint"
 ---
 
 **Meu papel:** autor único. Um teste curto de estúdio em que o ponto não era o sprint — o Roblox já dá WASD de graça — mas *onde mora a autoridade*.

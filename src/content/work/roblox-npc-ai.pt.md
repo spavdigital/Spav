@@ -9,6 +9,10 @@ previewPosterUrl: "/work/npc-ai-card.jpg"
 coverImage:
   src: "./media/roblox-npc-ai/cover.jpg"
   alt: "Um NPC guarda perseguindo um jogador fugindo em campo aberto, no meio da perseguição"
+screenshots:
+  - src: "./media/roblox-npc-ai/cover.jpg"
+    alt: "Um NPC guarda perseguindo um jogador fugindo em campo aberto, no meio da perseguição"
+    caption: "IA de NPC — perseguição em andamento, os dois correndo"
 repoUrl: "https://github.com/spavdigital/roblox-npc-ai"
 liveUrl: "https://www.roblox.com/games/120166913647612/NPC-AI-Demo-SPAV"
 tags: ["Luau", "Rojo", "PathfindingService", "server-authoritative", "MIT"]

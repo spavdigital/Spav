@@ -55,17 +55,7 @@ const prefix = lang === 'pt' ? '/pt' : '';
       <a href={`${prefix}/services`}>{dict.nav.services}</a>
       <a href={`${prefix}/rates`}>{dict.nav.rates}</a>
       <a href={`${prefix}/about`}>{dict.nav.about}</a>
-      {/*
-        Gallery is built and routed at /gallery and /pt/gallery, but it is
-        derived from screenshots[] on the work collection and no case has any
-        yet — linking it would send visitors to an empty page.
-
-        To turn it on: add screenshots to at least one case's frontmatter
-        (both the .md and the .pt.md), then uncomment the line below. Nothing
-        else needs to change; the page and the nav label already exist.
-
-        <a href={`${prefix}/gallery`}>{dict.nav.gallery}</a>
-      */}
+      <a href={`${prefix}/gallery`}>{dict.nav.gallery}</a>
     </nav>
     <LangSwitch lang={lang} enPath={enPath} ptPath={ptPath} />
   </div>

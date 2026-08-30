@@ -12,6 +12,10 @@ urlSlug: "roblox-shop-datastore"
 coverImage:
   src: "./media/roblox-shop-datastore/cover.jpg"
   alt: "The shop panel open showing a catalog of items with prices, owned counts, and the player's coin balance"
+screenshots:
+  - src: "./media/roblox-shop-datastore/cover.jpg"
+    alt: "The shop panel open showing a catalog of items with prices, owned counts, and the player's coin balance"
+    caption: "Shop & inventory — the reference client GUI, live"
 ---
 
 The client never sends a price — it sends an item id, and the server looks up the price itself. `attemptPurchase` is the only place a balance changes, and it runs entirely server-side: check the catalog, check the balance, deduct, grant. There is no code path where a client can set its own coins or claim an item it didn't pay for.

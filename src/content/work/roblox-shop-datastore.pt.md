@@ -12,6 +12,10 @@ urlSlug: "roblox-shop-datastore"
 coverImage:
   src: "./media/roblox-shop-datastore/cover.jpg"
   alt: "O painel da loja aberto mostrando um catálogo de itens com preços, quantidade possuída e o saldo de moedas do jogador"
+screenshots:
+  - src: "./media/roblox-shop-datastore/cover.jpg"
+    alt: "O painel da loja aberto mostrando um catálogo de itens com preços, quantidade possuída e o saldo de moedas do jogador"
+    caption: "Loja & inventário — a GUI de referência, ao vivo"
 ---
 
 O cliente nunca envia um preço — ele envia o id do item, e o servidor mesmo busca o preço. `attemptPurchase` é o único lugar onde um saldo muda, e ele roda inteiramente no servidor: checa o catálogo, checa o saldo, debita, concede. Não existe caminho onde o cliente defina suas próprias moedas ou reivindique um item que não pagou.
