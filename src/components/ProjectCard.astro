@@ -1,66 +1,224 @@
 ---
+import { Image } from 'astro:assets';
+import CodeCover from './CodeCover.astro';
+import { firstCodeBlock } from '../lib/work';
+import type { WorkEntry } from '../lib/work';
+import type { Dict } from '../i18n';
+
 interface Props {
+  entry: WorkEntry;
   href: string;
-  title: string;
-  engine: string;
-  complexity: string;
-  summary: string;
-  previewVideoUrl?: string;
-  previewPosterUrl?: string;
+  dict: Dict;
+  /** "band" = wide row (Work listing). "stack" = media over text (Home grid). */
+  layout?: 'band' | 'stack';
+  /** First card on the Work page is above the fold, so it loads eagerly. */
+  eager?: boolean;
 }
 
-const { href, title, engine, complexity, summary, previewVideoUrl, previewPosterUrl } = Astro.props;
+const { entry, href, dict, layout = 'band', eager = false } = Astro.props;
+const d = entry.data;
+
+const code = firstCodeBlock(entry.body);
+const hasMedia = Boolean(d.previewVideoUrl || d.coverImage);
+
+// The card is always two containers: cover, then text. The text container's
+// middle swaps between the summary and a source excerpt — but only on a case
+// that has real media, because on the others the excerpt is already the cover
+// and a toggle would offer the visitor the thing they are looking at.
+//
+// Meta, title, tags and the action buttons deliberately stay put through the
+// swap: a card that loses its title and its Play button when you press "Code"
+// is no longer a card, it is a code viewer with no way back.
+const swappable = layout === 'band' && hasMedia && code;
+const panelId = `code-${entry.id.replace(/[^a-z0-9]+/gi, '-')}`;
+
+// "Watch" points at the project page's own video block rather than straight at
+// the YouTube URL: it keeps the visitor on the site, and the embed is the
+// first thing on that page anyway.
+const watchHref = d.videoUrl ? `${href}#video` : undefined;
+const tags = d.tags.slice(0, 5);
 ---
 
-<a class="project-card card" href={href}>
-  {previewVideoUrl && (
-    <video
-      class="preview"
-      src={previewVideoUrl}
-      poster={previewPosterUrl}
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-    ></video>
-  )}
-  {previewVideoUrl && previewPosterUrl && (
-    <img class="preview preview-static" src={previewPosterUrl} alt="" loading="lazy" />
-  )}
-  <p class="meta">{engine} · {complexity}</p>
-  <h2>{title}</h2>
-  <p>{summary}</p>
-</a>
+<article class:list={['project-card', 'card', `layout-${layout}`]}>
+  <div class="media">
+    {d.previewVideoUrl ? (
+      <>
+        <video
+          class="preview"
+          src={d.previewVideoUrl}
+          poster={d.previewPosterUrl}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload={eager ? 'auto' : 'metadata'}
+        ></video>
+        {d.previewPosterUrl && (
+          <img class="preview preview-static" src={d.previewPosterUrl} alt="" loading="lazy" />
+        )}
+      </>
+    ) : d.coverImage ? (
+      <Image
+        class="preview"
+        src={d.coverImage.src}
+        alt={d.coverImage.alt}
+        widths={[420, 720, 1040]}
+        sizes="(max-width: 780px) 100vw, 42vw"
+        loading={eager ? 'eager' : 'lazy'}
+      />
+    ) : code ? (
+      <CodeCover code={code.code} lang={code.lang} label={dict.card.codeExcerpt} seed={entry.id} />
+    ) : null}
+  </div>
+
+  <div class="body">
+    <div class="head">
+      <p class="meta">{d.engine} · {d.complexity}</p>
+      {swappable && (
+        <div class="swap-tabs" role="group" aria-label={dict.card.tabGroup} data-swap-tabs>
+          <button type="button" data-swap="about" aria-pressed="true" aria-controls={panelId}>
+            {dict.card.tabAbout}
+          </button>
+          <button type="button" data-swap="code" aria-pressed="false" aria-controls={panelId}>
+            {dict.card.tabCode}
+          </button>
+        </div>
+      )}
+    </div>
+
+    <h2 class="title"><a href={href}>{d.title}</a></h2>
+
+    <div class="swap" id={panelId}>
+      <p class="summary" data-panel="about">{d.summary}</p>
+      {swappable && code && (
+        <div class="code-panel" data-panel="code" hidden>
+          <CodeCover
+            code={code.code}
+            lang={code.lang}
+            label={dict.card.codeExcerpt}
+            seed={entry.id}
+            variant="panel"
+          />
+        </div>
+      )}
+    </div>
+
+    {tags.length > 0 && (
+      <ul class="tags">
+        {tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+    )}
+
+    <div class="actions">
+      {watchHref && (
+        <a class="btn btn-outline" href={watchHref}>{dict.card.watch}</a>
+      )}
+      {d.liveUrl && (
+        <a class="btn btn-primary" href={d.liveUrl} target="_blank" rel="noopener">
+          {dict.card.play}
+        </a>
+      )}
+      {d.repoUrl && (
+        <a class="btn btn-secondary" href={d.repoUrl} target="_blank" rel="noopener">
+          {dict.card.source}
+        </a>
+      )}
+      <a class="details" href={href}>{dict.card.readCase} &rarr;</a>
+    </div>
+  </div>
+</article>
+
+<script>
+  // The tabs are hidden until this runs, so a visitor without JS never sees a
+  // control that does nothing — they get the summary, which is the text that
+  // matters and the text that gets indexed.
+  document.querySelectorAll<HTMLElement>('[data-swap-tabs]').forEach((group) => {
+    const card = group.closest('article');
+    if (!card) return;
+    const panels = card.querySelectorAll<HTMLElement>('[data-panel]');
+    const buttons = group.querySelectorAll<HTMLButtonElement>('button[data-swap]');
+
+    group.dataset.ready = 'true';
+
+    buttons.forEach((button) =>
+      button.addEventListener('click', () => {
+        const wanted = button.dataset.swap;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.swap === wanted)));
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.panel !== wanted;
+        });
+      })
+    );
+  });
+</script>
 
 <style>
   .project-card {
-    display: block;
-    color: var(--color-text);
+    position: relative;
+    padding: 0;
     overflow: hidden;
+    display: grid;
+    transition: border-color 0.15s ease;
   }
 
-  .project-card:hover {
-    border-color: var(--color-accent-cyan);
-    text-decoration: none;
+  /* Two containers: cover, then text. The cover is the first thing rendered
+     and the first thing read on a narrow screen. */
+  .layout-band {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: stretch;
+  }
+
+  .layout-stack {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
+  /* min-width: 0 is load-bearing: the cover renders non-wrapping code, and its
+     intrinsic width would otherwise blow the grid track past the card and get
+     the summary clipped by overflow: hidden. */
+  .media {
+    position: relative;
+    background: var(--color-surface-2);
+    min-height: 0;
+    min-width: 0;
+    /* Query container so the code excerpt sizes its type to the column it got
+       rather than to the viewport. */
+    container-type: inline-size;
+  }
+
+  .layout-band .media {
+    height: 100%;
+  }
+
+  .media :global(.code-cover) {
+    height: 100%;
+  }
+
+  .layout-band .media :global(.code-cover) {
+    aspect-ratio: auto;
   }
 
   .preview {
-    width: calc(100% + 3rem);
-    margin: -1.5rem -1.5rem 1rem;
+    width: 100%;
+    height: 100%;
     display: block;
-    aspect-ratio: 16 / 9;
     object-fit: cover;
     background: var(--color-surface-2);
+  }
+
+  .layout-stack .preview,
+  .layout-stack .media :global(.code-cover) {
+    aspect-ratio: 16 / 9;
+    height: auto;
   }
 
   .preview-static {
     display: none;
   }
 
-  /* Users who've asked for less motion get the poster frame only — the
-     video is removed from the render tree (not just paused), which stops
-     browsers from decoding it in the background. */
+  /* Users who asked for less motion get the poster frame only — the video is
+     removed from the render tree (not just paused), which stops browsers from
+     decoding it in the background. */
   @media (prefers-reduced-motion: reduce) {
     video.preview {
       display: none;
@@ -71,11 +229,181 @@ const { href, title, engine, complexity, summary, previewVideoUrl, previewPoster
     }
   }
 
+  .body {
+    min-width: 0;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    container-type: inline-size;
+  }
+
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
   .meta {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--color-text-muted);
-    margin-bottom: 0.5rem;
+    margin: 0;
+  }
+
+  /* Hidden until the script marks the group ready — no dead control without
+     JS, and no flash of a control that is about to work. */
+  .swap-tabs {
+    position: relative;
+    z-index: 1;
+    display: none;
+    flex-shrink: 0;
+    gap: 0.15rem;
+    padding: 0.15rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-bg);
+  }
+
+  .swap-tabs[data-ready] {
+    display: inline-flex;
+  }
+
+  .swap-tabs button {
+    border: 0;
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    background: transparent;
+    color: var(--color-text-muted);
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .swap-tabs button:hover {
+    color: var(--color-text);
+  }
+
+  .swap-tabs button[aria-pressed='true'] {
+    background: var(--color-surface-2);
+    color: var(--color-text);
+  }
+
+  .title {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  .title a {
+    color: var(--color-text);
+  }
+
+  .title a:hover {
+    color: var(--color-accent-cyan);
+    text-decoration: none;
+  }
+
+  /* Whole-card click target, without nesting <a> inside <a>: the title link is
+     stretched over the card, and the tabs and buttons are lifted above it. */
+  .title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .project-card:hover {
+    border-color: var(--color-accent-cyan);
+  }
+
+  /* One reserved area for both states. */
+  .swap {
+    margin-top: 0.35rem;
+    min-height: 8.5rem;
+  }
+
+  /* On a card that actually has the toggle, both states reserve the same
+     height, so pressing "Code" swaps the content without moving the seven
+     cards below it down the page. Cards without the toggle keep the smaller
+     reserve and stay as compact as before. */
+  .project-card:has(.swap-tabs[data-ready]) .swap {
+    min-height: 12rem;
+  }
+
+  .summary {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+
+  .code-panel {
+    height: 12rem;
+    container-type: inline-size;
+  }
+
+  .tags {
+    margin: 0.9rem 0 0;
+  }
+
+  .tags li {
+    font-size: 0.72rem;
+    padding: 0.15rem 0.55rem;
+  }
+
+  .actions {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+  }
+
+  .actions .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .details {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+  }
+
+  .details:hover {
+    color: var(--color-accent-cyan);
+  }
+
+  @media (max-width: 780px) {
+    .layout-band {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+    }
+
+    .layout-band .media,
+    .layout-band .media :global(.code-cover) {
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+
+    .body {
+      padding: 1.25rem;
+    }
+
+    .title {
+      font-size: 1.15rem;
+    }
+
+    .head {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
   }
 </style>

@@ -7,18 +7,23 @@ export const en = {
     home: 'Home',
     work: 'Work',
     services: 'Services',
+    rates: 'Rates',
     about: 'About',
+    // Gallery is built and routed, but stays out of the header until at
+    // least one case has screenshots[] filled in. See Header.astro.
+    gallery: 'Gallery',
   },
   home: {
     eyebrow: 'Available for hire',
     h1: 'Server-authoritative game systems, built to spec.',
     sub: "I write the systems your server runs on — jobs, economies, NPC behaviour, data persistence, anti-exploit validation — for FiveM, Roblox and Minecraft.",
-    proof: 'Lead developer on an unreleased roguelite for a studio (under NDA) · 3 open-source demos under MIT · 5 studio trial systems, documented on this site',
+    proof: 'Lead developer on an unreleased roguelite for a studio (under NDA) · 8 systems on this site, all open source under MIT · 3 of them playable on Roblox',
     ctaPrimary: 'Talk on Discord',
     ctaSecondary: 'See the work',
     availability: {
       cards: ['Full-time', 'Part-time', 'Per-project', 'Quick fixes'],
       note: 'No job too small, no contract too long. Tell me the format that works for your team.',
+      hours: 'Mon–Sat, 09:00–19:00 UTC-3 (Brazil) · flexible around your timezone',
     },
     selectedWork: {
       heading: 'Selected work',
@@ -33,6 +38,7 @@ export const en = {
       { name: 'Minecraft', detail: 'Java, Spigot / Paper' },
     ],
     also: "Also comfortable in: Garry's Mod (GLua), Unity (C#)",
+    ratesLink: 'Currency, payment structure and what to send in a first message: rates & terms',
     processHeading: 'How I work',
     steps: [
       { title: 'Scope', body: 'You describe the system. I ask the questions that surface the edge cases before they become bugs.' },
@@ -64,7 +70,7 @@ export const en = {
         },
         {
           q: 'How does payment work?',
-          a: "In stages. Each milestone is tied to something you can run and test before you pay for it. I don't ask for the full amount upfront, and I don't expect you to trust me before I've shown anything.",
+          a: "In stages. Each milestone is tied to something you can run and test before you pay for it. I don't ask for the full amount upfront, and I don't expect you to trust me before I've shown anything. Invoicing is in USD or BRL — Robux is not accepted, including through DevEx. The rates page has the full terms.",
         },
         {
           q: 'What happens if something breaks after delivery?',
@@ -87,7 +93,72 @@ export const en = {
   },
   work: {
     heading: 'Work',
-    empty: 'Every entry names the system, states my role, and shows the piece of code that carried the hardest decision. Open-source demos link to the MIT source and a playable place; studio trial tasks are described with client names and assets removed.',
+    empty: 'Every entry names the system, states my role, and shows the piece of code that carried the hardest decision. All eight link to their MIT source; three are also playable on Roblox. Studio trial tasks are described with client names and assets removed.',
+  },
+  card: {
+    watch: 'Watch',
+    play: 'Play',
+    source: 'Source',
+    readCase: 'Read the case',
+    codeExcerpt: 'Source excerpt',
+    tabAbout: 'What it is',
+    tabCode: 'Code',
+    tabGroup: 'Show description or source excerpt',
+  },
+  gallery: {
+    heading: 'Gallery',
+    intro: 'Screenshots from the systems on this site. Click any image to open it full size.',
+    empty: 'No screenshots published yet.',
+    close: 'Close image',
+    prev: 'Previous image',
+    next: 'Next image',
+  },
+  rates: {
+    heading: 'Rates & terms',
+    intro: 'All of this is true before we talk, so neither of us spends a week finding out it is not a fit.',
+    currency: {
+      heading: 'Currency and payment methods',
+      body: 'I invoice in USD or BRL. Bank transfer, Wise or PayPal; Pix for clients in Brazil.',
+    },
+    robux: {
+      heading: 'Robux is not accepted',
+      body: 'Not at any exchange rate, not through DevEx, not as part payment, not as a bonus on top of cash. If Robux is the only budget available, we are not a fit — and I would rather you know that now than after a week of scoping.',
+    },
+    structure: {
+      heading: 'How payment is structured',
+      items: [
+        'Payment in milestones, each one tied to something you can run and test before you release it.',
+        'Never the full amount upfront. A small task can be a single milestone paid on delivery.',
+        'Price is quoted per task when the scope is fixed, or hourly for ongoing work.',
+      ],
+    },
+    engagements: {
+      heading: 'Ways to work together',
+      body: 'One-off tasks, ongoing maintenance, part-time and full-time. There is no minimum project size — a two-hour fix is welcome work, and quoting it honestly costs me nothing.',
+    },
+    tests: {
+      heading: 'No unpaid technical tests',
+      body: 'I do not build a system for free to prove I can build systems. Instead: eight open-source projects under MIT that you and your team can read right now, and a call where I walk through the reasoning behind any of them.',
+    },
+    quotes: {
+      heading: 'Quotes',
+      body: 'Within 24 hours of having enough detail to be accurate. If a scope is too vague to quote, I say so and ask the specific questions that would fix it.',
+    },
+    firstMessage: {
+      heading: 'What to send in the first message',
+      intro: 'The four things that let me answer usefully instead of asking four rounds of questions:',
+      items: [
+        'What the system has to do, in your own words.',
+        'Your budget and the currency it is in.',
+        'The deadline, if there is one.',
+        'The engine and framework — Roblox / FiveM (ESX, QBCore, standalone) / Minecraft (Spigot, Paper), or something custom.',
+      ],
+    },
+    hours: {
+      heading: 'Working hours',
+      body: 'Monday to Saturday, roughly 09:00–19:00 UTC-3 (Brazil). Flexible around your team\u2019s timezone for calls and releases.',
+    },
+    cta: 'Talk on Discord',
   },
   notFound: {
     title: 'Page not found',

@@ -3,11 +3,15 @@ title: "Sprint & stamina — where the authority lives"
 engine: "Roblox"
 complexity: "Small"
 summary: "A sprint system where the client can only request to sprint and never touches its own WalkSpeed. The server tracks stamina, validates every request, drops malformed payloads silently, and replicates a sprint aura so everyone sees it. Small on purpose: it is the anti-exploit pattern every other system on this page is built on."
-tags: ["Luau", "anti-exploit", "RemoteEvent", "server-authoritative"]
+repoUrl: "https://github.com/spavdigital/roblox-sprint-stamina"
+tags: ["Luau", "anti-exploit", "RemoteEvent", "server-authoritative", "MIT"]
 order: 8
 draft: false
 lang: "en"
 urlSlug: "roblox-sprint-stamina"
+coverImage:
+  src: "./media/roblox-sprint-stamina/cover.jpg"
+  alt: "A player character with a replicated sprint aura outline, with the stamina bar visibly depleted below"
 ---
 
 **My role:** sole author. A short studio trial where the point was not the sprint — Roblox gives you WASD for free — but *where the authority lives*.

@@ -3,7 +3,8 @@ title: "Cross-server LiveOps patching — 5,000 servers inside a 2-minute SLA"
 engine: "Roblox"
 complexity: "High"
 summary: "An admin on any server changes an item stat and every server in a 20,000-CCU fleet converges within 2 minutes — without hitting a MemoryStore, DataStore or MessagingService limit. Built as a studio trial task; 55-assertion test suite with a 5,000-server fleet simulation that runs outside Studio."
-tags: ["Luau", "MemoryStoreService", "MessagingService", "DataStoreService", "fleet-scale", "tested"]
+repoUrl: "https://github.com/spavdigital/roblox-liveops-patching"
+tags: ["Luau", "MemoryStoreService", "MessagingService", "DataStoreService", "fleet-scale", "tested", "MIT"]
 order: 2
 draft: false
 lang: "en"

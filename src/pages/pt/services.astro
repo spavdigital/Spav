@@ -30,6 +30,7 @@ const dict = getDict('pt');
 
   <section class="container section">
     <h2>{dict.services.processHeading}</h2>
+    <p class="rates-link"><a href="/pt/rates">{dict.services.ratesLink} &rarr;</a></p>
     <ol class="steps">
       {dict.services.steps.map((step) => (
         <li class="card">
@@ -78,6 +79,12 @@ const dict = getDict('pt');
   .also {
     margin-top: 1.5rem;
     color: var(--color-text-muted);
+  }
+
+  /* The money terms live on /rates; this is the pointer, not a second copy. */
+  .rates-link {
+    margin-top: -0.25rem;
+    font-size: 0.95rem;
   }
 
   .steps {

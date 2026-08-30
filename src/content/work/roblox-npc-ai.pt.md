@@ -6,6 +6,9 @@ summary: "Uma máquina de estados de IA para NPCs no Roblox, com autoridade no s
 videoUrl: "https://www.youtube.com/embed/i-PDjMKdUSk"
 previewVideoUrl: "/work/npc-ai-card.mp4"
 previewPosterUrl: "/work/npc-ai-card.jpg"
+coverImage:
+  src: "./media/roblox-npc-ai/cover.jpg"
+  alt: "Um NPC guarda perseguindo um jogador fugindo em campo aberto, no meio da perseguição"
 repoUrl: "https://github.com/spavdigital/roblox-npc-ai"
 liveUrl: "https://www.roblox.com/games/120166913647612/NPC-AI-Demo-SPAV"
 tags: ["Luau", "Rojo", "PathfindingService", "server-authoritative", "MIT"]

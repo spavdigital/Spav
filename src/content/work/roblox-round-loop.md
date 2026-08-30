@@ -3,11 +3,15 @@ title: "Round loop — intermission → arena → win condition → back to lobb
 engine: "Roblox"
 complexity: "Medium"
 summary: "A server-driven round state machine for a 1-vs-many game: players wait in a lobby, get moved to an arena built entirely by code, win by killing a target, and are returned to intermission. Late joiners and respawns are routed into the live round instead of being stranded. Built in a day as a studio trial."
-tags: ["Luau", "Rojo", "state-machine", "server-authoritative", "round-based"]
+repoUrl: "https://github.com/spavdigital/roblox-round-loop"
+tags: ["Luau", "Rojo", "state-machine", "server-authoritative", "round-based", "MIT"]
 order: 5
 draft: false
 lang: "en"
 urlSlug: "roblox-round-loop"
+coverImage:
+  src: "./media/roblox-round-loop/cover.jpg"
+  alt: "A player standing in the code-built arena facing the test dummy target, with the live ROUND status banner visible"
 ---
 
 **My role:** sole author. Built as a quick trial for a small studio making a juggernaut-style round game; the arena and dummy are placeholders for their real map and enemies.

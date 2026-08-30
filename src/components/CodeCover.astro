@@ -1,0 +1,171 @@
+---
+import { Code } from 'astro:components';
+import { coverExcerpt } from '../lib/work';
+
+interface Props {
+  code: string;
+  lang: string;
+  /** Short honest label, e.g. "Source excerpt". Localized by the caller. */
+  label: string;
+  /** Anything stable and per-case (the slug); only used to pick a tint. */
+  seed?: string;
+  /**
+   * "cover" = the card's visual stand-in for missing media: decorative, hidden
+   * from assistive tech, carries the honesty chip.
+   * "panel" = the code the visitor switched to on purpose: exposed to
+   * assistive tech, no chip (the toggle already says "Code"), more lines.
+   */
+  variant?: 'cover' | 'panel';
+}
+
+const { code, lang, label, seed = '', variant = 'cover' } = Astro.props;
+const excerpt = coverExcerpt(code, variant === 'panel' ? 26 : 20);
+
+// Eight code covers in one column would otherwise read as one undifferentiated
+// block. The tint is a deterministic mix between the two brand accents — so it
+// is always on-palette, always the same for a given case, and needs no per-case
+// configuration in the frontmatter.
+let hash = 0;
+for (const char of seed) hash = (hash * 31 + char.charCodeAt(0)) % 1000;
+const tint = 12 + (hash % 76); // 12%..87% of the way from violet to cyan
+---
+
+{/*
+  The cover for a case that has no clip and no screenshot yet.
+
+  It is generated from the case's own first code block rather than from a
+  placeholder image, for three reasons: it is true (this is the code that
+  ships), it never goes stale (edit the markdown, the cover follows), and it
+  disappears on its own the moment previewVideoUrl or coverImage is filled in.
+
+  The `label` chip is not decoration — it is the honesty guarantee. Nothing
+  here should read as a screenshot of a running game.
+
+  aria-hidden: the excerpt is decorative in this context. The full, readable
+  version of the same code is on the project page, and a screen reader user
+  scanning the Work list wants the title and summary, not thirteen lines of
+  Luau read aloud per card.
+*/}
+<div
+  class:list={['code-cover', `is-${variant}`]}
+  aria-hidden={variant === 'cover' ? 'true' : undefined}
+  style={`--cover-tint:${tint}%`}
+>
+  <div class="code-scroll">
+    <Code code={excerpt} lang={lang as any} theme="github-dark" />
+  </div>
+  {variant === 'cover' && <span class="chip">{label}</span>}
+</div>
+
+<style>
+  .code-cover {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    /* Darker than the card surface so the syntax colours carry their full
+       contrast; the tint is a wash in the corner, never behind the text. */
+    background: var(--color-bg);
+    background-image: radial-gradient(
+      130% 100% at 100% 0%,
+      color-mix(
+        in srgb,
+        color-mix(in srgb, var(--color-accent-cyan) var(--cover-tint, 40%), var(--color-accent-violet))
+          26%,
+        transparent
+      ),
+      transparent 62%
+    );
+  }
+
+  .code-scroll {
+    padding: 0.9rem 1rem 0;
+    height: 100%;
+  }
+
+  /* Inside the card body the panel sits flush with the surrounding text
+     rhythm, not against the card edge, so it gets its own frame. */
+  .is-panel {
+    aspect-ratio: auto;
+    height: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--radius) - 0.25rem);
+    overflow: hidden;
+  }
+
+  .is-panel .code-scroll {
+    padding: 0.7rem 0.85rem 0;
+  }
+
+  /* The panel is content the visitor asked to read, not a decorative cover,
+     so its edge fades are narrower — they should suggest a crop, not eat a
+     word and a half off every line. */
+  .is-panel::before {
+    width: 2rem;
+  }
+
+  .is-panel::after {
+    height: 28%;
+  }
+
+  /* :global because <Code> renders its own <pre>/<code> from another
+     component and never carries this file's scoping attribute. */
+  .code-cover :global(pre) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent !important;
+    overflow: hidden;
+    /* Fallback for anything without container queries, then sized to the
+       column: narrow tracks get smaller type and lose fewer characters per
+       line, wide ones get the full 11.5px. */
+    font-size: 10.5px;
+    font-size: clamp(9px, 2.55cqi, 11.5px);
+    line-height: 1.45;
+    /* No wrapping: a wrapped line in a code cover reads as broken code.
+       coverExcerpt() already clipped anything too wide. */
+    white-space: pre;
+  }
+
+  .code-cover :global(code) {
+    font-size: inherit;
+  }
+
+  /* Fades the last visible line into the card instead of guillotining it. */
+  .code-cover::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 42%;
+    background: linear-gradient(to top, var(--color-bg), transparent);
+    pointer-events: none;
+  }
+
+  /* Same idea on the right edge: a long line ending in a soft fade reads as a
+     cropped view of real code, where a hard cut reads as a rendering bug. */
+  .code-cover::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 3.5rem;
+    z-index: 1;
+    background: linear-gradient(to right, transparent, var(--color-bg));
+    pointer-events: none;
+  }
+
+  .chip {
+    position: absolute;
+    left: 1rem;
+    bottom: 0.85rem;
+    z-index: 2;
+    font-family: var(--font-text);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 0.2rem 0.6rem;
+  }
+</style>

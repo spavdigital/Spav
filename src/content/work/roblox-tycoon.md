@@ -9,6 +9,9 @@ order: 4
 draft: false
 lang: "en"
 urlSlug: "roblox-tycoon"
+coverImage:
+  src: "./media/roblox-tycoon/cover.jpg"
+  alt: "A claimed tycoon plot with three dropper types side by side and a stack of coins showing accumulated cash"
 ---
 
 Claiming a plot looks trivial — check if it's free, assign it — until two players trigger their `ProximityPrompt` in the same frame. `claimPlot` runs synchronously to completion with no `yield` in the middle: Luau's single-threaded execution model means the read-then-write (check `plotOwners[plot]`, then set it) can never be interleaved by another player's claim. That's the whole trick, and it only holds because nothing in the function awaits anything.

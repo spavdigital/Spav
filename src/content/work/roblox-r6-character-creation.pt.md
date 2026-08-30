@@ -3,11 +3,15 @@ title: "Criação de personagem R6 — rolagem ponderada, escala manual do rig, 
 engine: "Roblox"
 complexity: "High"
 summary: "Menu principal → modo → slot → criação de personagem → jogar, com o personagem restaurado ao reentrar. Altura e peso são rolados no servidor contra as tabelas de probabilidade do documento de design do cliente, um rig R6 é redimensionado à mão (os valores de escala do engine são só R15) e os perfis persistem numa camada de DataStore com session lock. Teste de estúdio; a checagem de distribuição com 400.000 rolls roda fora do Roblox."
-tags: ["Luau", "Rojo", "DataStoreService", "R6", "UI-flow", "tested"]
+repoUrl: "https://github.com/spavdigital/roblox-r6-character-creation"
+tags: ["Luau", "Rojo", "DataStoreService", "R6", "UI-flow", "tested", "MIT"]
 order: 7
 draft: false
 lang: "pt"
 urlSlug: "roblox-r6-character-creation"
+coverImage:
+  src: "./media/roblox-r6-character-creation/cover.jpg"
+  alt: "O menu de criação de personagem aberto com altura e peso rolados, ao lado do personagem R6 escalado manualmente que ele produziu"
 ---
 
 **Meu papel:** autor único — fluxo de menu, autoridade no servidor, persistência, escala do rig e a suíte de teste. Feito como teste para um estúdio de survival-horror; os IDs de roupa e o PDF de design são deles e não estão nesta descrição.
