@@ -9,6 +9,9 @@ order: 8
 draft: false
 lang: "en"
 urlSlug: "roblox-sprint-stamina"
+coverImage:
+  src: "./media/roblox-sprint-stamina/cover.jpg"
+  alt: "A player character with a replicated sprint aura outline, with the stamina bar visibly depleted below"
 ---
 
 **My role:** sole author. A short studio trial where the point was not the sprint — Roblox gives you WASD for free — but *where the authority lives*.

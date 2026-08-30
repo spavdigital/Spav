@@ -9,6 +9,9 @@ order: 5
 draft: false
 lang: "pt"
 urlSlug: "roblox-round-loop"
+coverImage:
+  src: "./media/roblox-round-loop/cover.jpg"
+  alt: "Um jogador na arena construída por código, de frente pro dummy alvo, com o banner de status ROUND visível"
 ---
 
 **Meu papel:** autor único. Feito como teste rápido para um estúdio pequeno que desenvolve um jogo de rounds estilo juggernaut; a arena e o dummy são placeholders do mapa e dos inimigos reais deles.

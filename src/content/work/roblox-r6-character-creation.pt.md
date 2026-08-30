@@ -9,6 +9,9 @@ order: 7
 draft: false
 lang: "pt"
 urlSlug: "roblox-r6-character-creation"
+coverImage:
+  src: "./media/roblox-r6-character-creation/cover.jpg"
+  alt: "O menu de criação de personagem aberto com altura e peso rolados, ao lado do personagem R6 escalado manualmente que ele produziu"
 ---
 
 **Meu papel:** autor único — fluxo de menu, autoridade no servidor, persistência, escala do rig e a suíte de teste. Feito como teste para um estúdio de survival-horror; os IDs de roupa e o PDF de design são deles e não estão nesta descrição.

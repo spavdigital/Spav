@@ -9,6 +9,9 @@ order: 7
 draft: false
 lang: "en"
 urlSlug: "roblox-r6-character-creation"
+coverImage:
+  src: "./media/roblox-r6-character-creation/cover.jpg"
+  alt: "The character creation menu open with rolled height and weight, next to the manually-scaled R6 character it produced"
 ---
 
 **My role:** sole author — menu flow, server authority, persistence, rig scaling and the test harness. Built as a trial for a survival-horror studio; their clothing asset IDs and design PDF are theirs and are not in this write-up.

@@ -9,6 +9,9 @@ order: 8
 draft: false
 lang: "pt"
 urlSlug: "roblox-sprint-stamina"
+coverImage:
+  src: "./media/roblox-sprint-stamina/cover.jpg"
+  alt: "Um personagem com o contorno de aura de sprint replicado, com a barra de stamina visivelmente reduzida abaixo"
 ---
 
 **Meu papel:** autor único. Um teste curto de estúdio em que o ponto não era o sprint — o Roblox já dá WASD de graça — mas *onde mora a autoridade*.

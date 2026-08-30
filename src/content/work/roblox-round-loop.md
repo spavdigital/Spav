@@ -9,6 +9,9 @@ order: 5
 draft: false
 lang: "en"
 urlSlug: "roblox-round-loop"
+coverImage:
+  src: "./media/roblox-round-loop/cover.jpg"
+  alt: "A player standing in the code-built arena facing the test dummy target, with the live ROUND status banner visible"
 ---
 
 **My role:** sole author. Built as a quick trial for a small studio making a juggernaut-style round game; the arena and dummy are placeholders for their real map and enemies.
