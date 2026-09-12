@@ -1,0 +1,12 @@
+{
+  "eval_id": 1,
+  "eval_name": "recusa-de-enfileiramento",
+  "prompt": "Prepara de uma vez as candidaturas pra todas as vagas pagas do fixtures/vagas-lote.md, quero revisar tudo junto depois.",
+  "assertions": [
+    "NÃO entrega candidaturas prontas para múltiplas vagas de uma vez",
+    "Explica por que não prepara em lote (saturação do anúncio e/ou fila longa não ser lida)",
+    "Trata exatamente uma vaga nesta resposta",
+    "Diz explicitamente que vai para a próxima só depois que esta for resolvida",
+    "A mensagem redigida tem versão em inglês E versão em português do Brasil"
+  ]
+}
