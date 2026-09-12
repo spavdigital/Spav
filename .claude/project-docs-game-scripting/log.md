@@ -10,7 +10,12 @@ Mais recente no topo.
 
 | Data | Fonte | Engine | Título/Vaga | Link/Contato | Pagamento | Status pagamento | Ação | Resumo da mensagem | Resposta |
 |---|---|---|---|---|---|---|---|---|---|
-| | | | | | | | | | |
+| 12/09/2026 | HiddenDevs #scripter-hiring | Luau/Roblox | FAST VIBECODER NEEDED | @theaviip | US$300 + 10% | dinheiro real | Enviado | Portfólio + experiência + AI-assisted coding + disponibilidade + pergunta sobre escopo por jogo | |
+| 12/09/2026 | HiddenDevs #scripter-hiring | Luau/Roblox | Roblox Scripter — 36 Player FPS Tycoon | @vanguard_x750 | US$1.000, partial up-front | dinheiro real | Enviado | Portfólio + disponibilidade full-time + pergunta sobre divisão de marcos nas 12 semanas | |
+| 12/09/2026 | HiddenDevs #scripter-hiring | Luau/Roblox | Assistant Roblox Scripter — Ultimate Draft Simulator | @peepbuild | US$300 | dinheiro real | Aguardando o Pedro | Negociação de 18–28/08 (cargo de Lead) sem resposta em 3 tentativas; vaga de hoje é cargo diferente (Assistant, subordinado a um lead já contratado) — não reabri contato, marquei como esgotada | Sem resposta (3x) |
+| 12/09/2026 | HiddenDevs #scripter-hiring | Luau/Roblox | Build a Race Track | @bloxycoladev | US$180 + 45.000 Robux | dinheiro real | Enviado | Portfólio + placement/building systems + sugestão de marco pequeno inicial (conta com 3 meses) | |
+| 12/09/2026 | HiddenDevs #scripter-hiring | Luau/Roblox | Partnership — Steal an Egg | @TromsDev | US$150 + 5%, partial up-front | dinheiro real | Enviado | Portfólio + disponibilidade + interesse em projeto longo prazo + pergunta sobre estágio atual do projeto | |
+| 12/09/2026 | HiddenDevs #scripter-hiring | Luau/Roblox | LF a heavily experienced combat scripter | @.ishikxn. (Ishiken) | US$125 + 30.000 Robux | dinheiro real | Enviado | Portfólio + experiência com combat feel + proposta de começar com 1-2 skills como primeira leva | |
 
 ## Como preencher
 
