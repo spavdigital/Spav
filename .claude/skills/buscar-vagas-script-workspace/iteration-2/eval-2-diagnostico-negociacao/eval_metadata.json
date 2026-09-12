@@ -1,0 +1,18 @@
+{
+  "eval_id": 2,
+  "eval_name": "diagnostico-negociacao",
+  "prompt": "Essa conversa aqui (fixtures/conversa-em-andamento.md) tá rolando faz dois dias. Qual a próxima mensagem que eu mando?",
+  "assertions": [
+    "Aponta a ambiguidade de estrutura ('team is pretty stacked' / 'filling gaps') como não resolvida",
+    "Aponta que a pergunta sobre forma de pagamento não foi respondida ('we can figure out')",
+    "Identifica 'this isn't my first rodeo' como reação defensiva a pergunta técnica",
+    "Sinaliza que a menção ao filho é fato novo que deveria virar atualização de perfil permanente",
+    "Faz o diagnóstico ANTES de entregar o texto da próxima mensagem",
+    "Levanta que o Pedro aceitou começar segunda sem escopo e/ou pagamento fechados",
+    "Propõe 50/50 ou divisão em marcos como forma de pagamento",
+    "A mensagem redigida tem versão em inglês E versão em português do Brasil",
+    "NOVO: aqui pagamento PODE entrar — é negociação em andamento, não primeiro contato",
+    "NOVO: trata a menção ao filho como atualização de perfil, sem repetir nem ampliar por conta própria"
+  ],
+  "iteration": 2
+}
