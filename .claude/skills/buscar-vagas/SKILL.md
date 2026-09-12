@@ -221,15 +221,15 @@ Leia conforme a necessidade, não todos de uma vez:
 | `references/fontes.md` — fontes ativas, IDs de categoria, nível de acesso | ✔ presente (correções de 21/ago incorporadas) |
 | `references/desbloqueio-de-fontes.md` — travas de conta por fonte e ordem de ataque | ✔ presente |
 | `references/perfil-pedro.md` — para redigir as respostas com os dados certos | ✔ presente (reconstituído em 12/set, confirmar com o Pedro) |
-| `references/regras-devforum.md` — **leia antes de redigir qualquer resposta** | ✘ não veio no pacote — reconstituir |
-| `references/precos.md` — DevEx, corte de 30%, faixas de mercado | ✘ não veio no pacote — reconstituir |
+| `references/regras-devforum.md` — **leia antes de redigir qualquer resposta** | ✔ presente (12/set) — fontes primárias bloqueadas pelo proxy, confirmar na hora |
+| `references/precos.md` — DevEx, conversão e faixas de mercado | ✔ presente (12/set) — fontes primárias bloqueadas pelo proxy, confirmar na hora |
 | `references/aprendizados.md` — histórico de correções | ✔ presente, vazio — a skill preenche a cada rodada |
 | `references/fontes-candidatas.md` — fila de fontes a avaliar | ✔ presente, vazio — a skill preenche quando achar fonte nova |
 
-**Enquanto `regras-devforum.md` e `precos.md` estiverem faltando:** não invente o
-conteúdo deles. Antes de redigir resposta para o DevForum, consulte as regras da
-categoria na hora; antes de converter Robux, confirme a taxa de DevEx vigente e
-diga ao Pedro que está usando valor consultado, não valor registrado.
+**`regras-devforum.md` e `precos.md` foram escritos sem acesso à fonte primária**
+(as páginas da Roblox estão bloqueadas pelo proxy de saída). Os dois trazem
+número e regra utilizáveis, mas confirme na hora antes de usar numa proposta, e
+diga ao Pedro que está usando valor consultado.
 
 ## Documentos operacionais do projeto
 
