@@ -1,9 +1,13 @@
 ---
-name: radar-lusofono
+name: buscar-vagas
 description: Radar diário de vagas e oportunidades para scripter/dev em fóruns de gamedev, com foco em Roblox/Luau e canais em português, incluindo diagnóstico de negociação em andamento e contenção de teste grátis. Use esta skill sempre que o assunto for buscar vagas, prospectar clientes, redigir resposta a anúncio de recrutamento, avaliar se uma oferta vale a pena, analisar uma conversa de negociação já em curso, ou atualizar o conhecimento sobre os fóruns e comunidades onde se contrata dev. Use também quando o usuário mencionar DevForum, RoHire, Discourse, freelance de Roblox, ou pedir para rodar o radar.
 ---
 
-# Radar Lusófono
+# Buscar Vagas
+
+Antiga `radar-lusofono` — o nome mudou em 12/set/2026, o conteúdo é o mesmo
+consolidado. O `project-docs/log.md` ainda usa o nome antigo em registros
+históricos; é a mesma skill.
 
 Agente de busca de oportunidades para o Pedro — dev full-stack (Next.js, Python,
 Vercel) e lead dev de Roblox/Luau, brasileiro, em Paranã-TO.

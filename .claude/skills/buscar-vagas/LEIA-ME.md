@@ -1,4 +1,6 @@
-# radar-lusofono — skill consolidada (12/set/2026)
+# Buscar Vagas (`buscar-vagas`) — skill consolidada (12/set/2026)
+
+Chamava-se `radar-lusofono` até 12/set/2026. Mesma skill, nome novo.
 
 Esta pasta é a **fonte de verdade versionada** da skill de busca de vagas. Ela
 existe aqui, no git, justamente por causa do defeito descrito no pacote de
@@ -47,6 +49,6 @@ prometeu.**
 - **Na conta inteira (claude.ai → Settings → Capabilities → Skills):** subir o
   conteúdo desta pasta como skill customizada. `references/` e `project-docs/`
   vão junto — a skill referencia os dois por caminho relativo.
-- Depois de subir na conta, a versão antiga `radar-lusofono` da conta deve ser
-  **substituída**, não duplicada: duas skills com a mesma finalidade competem no
-  disparo e você paga a leitura das duas.
+- A `radar-lusofono` antiga já foi apagada da conta em 12/set/2026, então não há
+  duplicata a resolver — mas a regra vale pra frente: duas skills com a mesma
+  finalidade competem no disparo e você paga a leitura das duas.
