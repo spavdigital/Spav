@@ -50,6 +50,13 @@ citava foi removido da citação, já que o script nunca existiu.
   gasto com quem talvez nem responda.
 - **Escopo grande vira marcos**, com 50/50 em cada marco.
 - **C#/Unity** entrou no escopo, junto de Luau/Roblox, Lua/FiveM e Lua/GMod.
+- **Dois modos de entrada.** O Pedro costuma rodar a skill já dentro de um fórum,
+  com página aberta — varrer tudo nessa hora é desperdício. A skill infere o modo
+  quando o sinal é claro, pergunta só quando é ambíguo, e sempre declara em qual
+  entrou, pra ele corrigir em uma palavra.
+- **Condição de pagamento fora do primeiro contato.** 50/50, marcos e valor são
+  assunto da negociação, não da mensagem de abertura.
+- **O arranjo com o filho não é oferecido**, só respondido se perguntarem.
 
 ## Pendência aberta
 

@@ -26,6 +26,45 @@ Duas consequências que valem mais que qualquer regra abaixo:
 
 ---
 
+## Dois modos: página aberta ou varredura
+
+O Pedro costuma rodar a skill **já dentro de um fórum**, com uma página aberta.
+Rodar uma varredura completa nessa hora é desperdício — ele já achou o lugar.
+
+| Modo | Quando | O que faz |
+|---|---|---|
+| **Página aberta** | ele já está num tópico, numa listagem ou colou um link | lê o que está na tela, não navega pra outras fontes |
+| **Varredura** | ele quer descobrir o que apareceu | percorre `references/fontes.md` |
+
+### Como escolher
+
+Infira quando o sinal for claro, **sem perguntar**:
+
+- "olha essa vaga", "essa página", "o que acha disso", um link colado, ou
+  qualquer referência a algo que está na tela → **página aberta**
+- "roda o radar", "procura vaga", "tem coisa nova?", "o que apareceu hoje" →
+  **varredura**
+
+Pergunte só quando estiver genuinamente ambíguo ("tem alguma coisa boa?"), e
+pergunte em uma linha: *"Analiso a página que você está vendo, ou faço a
+varredura geral?"*
+
+**Em qualquer caso, diga em qual modo entrou** antes de começar — uma linha,
+tipo "Analisando a página aberta do Server Bazaar". Se errou, ele corrige numa
+palavra, e isso custa menos que uma varredura inteira desperdiçada.
+
+### No modo página aberta
+
+O passo 1 do laço abaixo (encontrar) já foi feito pelo Pedro — comece direto na
+análise. Todo o resto vale igual: se a página tiver várias vagas, ainda é **uma
+por vez**, e a triagem é a mesma.
+
+Não saia navegando pra outras fontes por iniciativa própria. Se durante a
+análise você concluir que vale varrer o resto, **diga isso e pergunte**, em vez
+de já sair varrendo — o Pedro pode estar no meio de outra coisa.
+
+---
+
 ## O laço: uma vaga por vez
 
 Esta é a regra estrutural da skill. **Encontre → analise → preencha → envie (ou
