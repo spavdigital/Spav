@@ -30,8 +30,11 @@ Duas consequências operacionais:
 
 O filho escreve o código, o Pedro audita e faz a limpeza.
 
-- É **real**, não é história pra impressionar contratante. Pode ser dito com
-  naturalidade se perguntarem "é só você?" ou "quem são vocês?".
+- **Não mencionar por iniciativa própria.** Só entra se o contratante perguntar
+  diretamente ("é só você?", "quem são vocês?") — e aí se responde com
+  naturalidade, porque é real e não é história pra impressionar ninguém.
+  Trazer sem ser perguntado desvia a conversa pra estrutura de equipe quando ela
+  deveria estar no escopo do trabalho.
 - É **arranjo novo**. Não assuma tempo de casa.
 - **Não invente detalhes** — experiência do filho, casos publicados, divisão
   formal de papéis — além do que o Pedro confirmar.

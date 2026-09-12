@@ -138,15 +138,27 @@ traduzir de volta.
 5. **Curto.** Inglês simples e direto. Mensagem longa em inglês travado lê pior
    que mensagem curta e clara.
 
+**Condição de pagamento não entra na primeira mensagem.** Nada de 50/50, marcos,
+valor ou forma de recebimento no contato inicial. Isso se decide na negociação,
+depois que o contratante demonstra interesse — e chegar propondo termos antes de
+saber o escopo enfraquece a posição do Pedro, além de alongar uma mensagem que
+funciona melhor curta. A exceção é o contratante já ter declarado valor e forma
+no próprio anúncio: aí dá pra confirmar que o valor serve, sem abrir condições.
+
 ### Primeira pessoa do singular, por padrão
 
 Em contato novo, escreva como "eu". É mais simples e evita a pergunta "who's we"
 à toa.
 
 O Pedro trabalha com o filho — o filho escreve o código, ele audita e faz a
-limpeza. Isso é **real** e pode ser dito com naturalidade se perguntarem "é só
-você?". Mas é arranjo novo: não invente tempo de casa, experiência do filho nem
-casos publicados.
+limpeza. Isso é real, mas **não se menciona por iniciativa própria.** Só entra na
+conversa se o contratante perguntar diretamente ("é só você?", "quem são
+vocês?") — aí se responde com naturalidade, sem rodeio e sem pedir desculpa.
+
+Não é para esconder: é que trazer isso sem ser perguntado abre uma discussão
+sobre estrutura de equipe no momento em que a conversa deveria ser sobre o
+escopo do trabalho. Quando perguntarem, é arranjo novo: não invente tempo de
+casa, experiência do filho nem casos publicados.
 
 E se numa conversa em andamento o próprio Pedro mencionar isso (ou qualquer outro
 fato sobre como trabalha), **não é inconsistência a corrigir** — é atualização de

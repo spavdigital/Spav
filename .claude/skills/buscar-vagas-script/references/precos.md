@@ -29,6 +29,42 @@ A taxa premium **não se aplica ao Pedro por padrão** — ela depende de onde e
 quem o Robux foi gasto dentro do jogo, não de quem recebe. Só entra na conta se o
 contratante comprovar que o Robux dele vem dessa fatia.
 
+### Robux de contratante quase nunca vira dinheiro (12/set/2026)
+
+Esta é a razão de fundo da regra "Robux puro está fora". Não é que Robux valha
+pouco — é que **o Robux que um contratante paga ao Pedro provavelmente não é
+conversível de jeito nenhum.** Três barreiras se somam:
+
+1. **Earned Robux ≠ Robux comprado.** O DevEx só converte Robux *ganho* na
+   plataforma (venda de passes, produtos, itens, Creator Rewards). Se o
+   contratante comprou Robux para pagar, a origem é compra — não entra.
+2. **Payout de grupo sobre conteúdo de terceiro.** Pagamento por comissão
+   costuma vir como group payout. A regra publicada trata payout como ganho
+   quando os fundos do grupo vêm de vendas reais, mas há relato direto de que
+   **payout de grupo em conteúdo que o recebedor não criou não conta como Earned
+   Robux** — que é exatamente o caso de trabalho freelance no jogo dos outros.
+   Existem tópicos de dev com DevEx recusado por comissão.
+3. **Piso e assinatura.** O mínimo para sacar subiu para a casa dos **100.000
+   Earned Robux**, e é preciso ter **Roblox Premium ativo no momento do saque**
+   (assinatura paga) mais verificação de identidade. Premium vencido é a causa
+   mais comum de recusa.
+
+E a decisão final sobre o que é Earned Robux **é da Roblox, caso a caso**. Ou
+seja: mesmo fazendo tudo certo, não há garantia.
+
+**Como usar isso numa conversa.** Não diga "não aceito Robux" e pare — explique:
+*"Robux pago por contratante normalmente não é elegível pro DevEx, porque não
+conta como Earned Robux. Na prática eu não conseguiria sacar."* É mais forte que
+recusa seca, e é verdade verificável.
+
+Pagamento em Robux só volta à mesa se o contratante demonstrar que o valor sai
+de fundos de grupo compostos por vendas reais **e** houver parte fixa relevante
+em dinheiro. Mesmo assim: caso a caso, nunca por padrão.
+
+> Procedência: mesma ressalva do topo — páginas oficiais da Roblox bloqueadas
+> pelo proxy, dados vindos de resumo de busca. Antes de afirmar isso a um
+> contratante, confirme a regra vigente.
+
 ### Como usar isso na triagem
 
 A regra de perfil vem antes da matemática: **Robux puro está fora, sem exceção.**
