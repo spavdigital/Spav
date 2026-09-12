@@ -223,7 +223,8 @@ Leia conforme a necessidade, não todos de uma vez:
 | `references/perfil-pedro.md` — para redigir as respostas com os dados certos | ✔ presente (reconstituído em 12/set, confirmar com o Pedro) |
 | `references/regras-devforum.md` — **leia antes de redigir qualquer resposta** | ✘ não veio no pacote — reconstituir |
 | `references/precos.md` — DevEx, corte de 30%, faixas de mercado | ✘ não veio no pacote — reconstituir |
-| `references/aprendizados.md` — histórico de correções | ✘ não veio no pacote — começar do zero |
+| `references/aprendizados.md` — histórico de correções | ✔ presente, vazio — a skill preenche a cada rodada |
+| `references/fontes-candidatas.md` — fila de fontes a avaliar | ✔ presente, vazio — a skill preenche quando achar fonte nova |
 
 **Enquanto `regras-devforum.md` e `precos.md` estiverem faltando:** não invente o
 conteúdo deles. Antes de redigir resposta para o DevForum, consulte as regras da
