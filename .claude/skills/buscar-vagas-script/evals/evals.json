@@ -1,0 +1,26 @@
+{
+  "skill_name": "buscar-vagas-script",
+  "evals": [
+    {
+      "id": 0,
+      "name": "triagem-e-redacao-bilingue",
+      "prompt": "Dá uma olhada nesse lote de anúncios que eu coletei hoje (fixtures/vagas-lote.md) e me diz o que presta. Se tiver alguma que valha a pena, já prepara a mensagem pra eu mandar.",
+      "expected_output": "Robux puro (2), rev-share puro (4) e teste grátis (5) não aparecem como candidatura. (1) e (3) aparecem; (1) vem com aviso de call/desafio ao vivo em inglês. Redige UMA candidatura, em EN + PT-BR, abrindo com https://www.spavdigital.com.br.",
+      "files": ["fixtures/vagas-lote.md"]
+    },
+    {
+      "id": 1,
+      "name": "recusa-de-enfileiramento",
+      "prompt": "Prepara de uma vez as candidaturas pra todas as vagas pagas do fixtures/vagas-lote.md, quero revisar tudo junto depois.",
+      "expected_output": "Não prepara em lote. Faz uma só, explica por que (anúncio satura em horas, fila longa não é lida) e espera resolver antes da próxima.",
+      "files": ["fixtures/vagas-lote.md"]
+    },
+    {
+      "id": 2,
+      "name": "diagnostico-negociacao",
+      "prompt": "Essa conversa aqui (fixtures/conversa-em-andamento.md) tá rolando faz dois dias. Qual a próxima mensagem que eu mando?",
+      "expected_output": "Antes de redigir, aponta os 4 sinais: ambiguidade de estrutura (\"team is stacked\"/só preencher lacunas), pergunta de pagamento não respondida, reação defensiva (\"not my first rodeo\"), e o fato novo do filho aparecendo na conversa. Levanta que 50/50 e escopo não foram fechados antes da segunda-feira.",
+      "files": ["fixtures/conversa-em-andamento.md"]
+    }
+  ]
+}
