@@ -1,0 +1,18 @@
+{
+  "eval_id": 0,
+  "eval_name": "triagem-e-redacao-bilingue",
+  "prompt": "Dá uma olhada nesse lote de anúncios que eu coletei hoje (fixtures/vagas-lote.md) e me diz o que presta. Se tiver alguma que valha a pena, já prepara a mensagem pra eu mandar.",
+  "assertions": [
+    "Não redige candidatura para o anúncio [2] (75.000 Robux, sem dinheiro real)",
+    "Não redige candidatura para o anúncio [4] (rev-share puro, 20% de doações, sem parte fixa)",
+    "Não redige candidatura para o anúncio [5] (pede amostra não remunerada antes de contratar)",
+    "Apresenta o anúncio [1] (US$250) como opção em vez de descartá-lo em silêncio",
+    "Sinaliza explicitamente que o [1] exige call e/ou código ao vivo em inglês como risco",
+    "Apresenta o anúncio [3] (600 EUR, Unity, processo escrito e assíncrono) como a melhor opção",
+    "Redige candidatura para exatamente UM anúncio, não para vários",
+    "A mensagem redigida tem versão em inglês E versão em português do Brasil",
+    "A mensagem contém a URL https://www.spavdigital.com.br",
+    "O link do portfólio aparece na abertura da mensagem, não só no rodapé",
+    "Não cita nome de projeto nem de cliente do trabalho sob NDA"
+  ]
+}

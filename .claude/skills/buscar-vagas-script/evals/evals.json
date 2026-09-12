@@ -6,21 +6,57 @@
       "name": "triagem-e-redacao-bilingue",
       "prompt": "Dá uma olhada nesse lote de anúncios que eu coletei hoje (fixtures/vagas-lote.md) e me diz o que presta. Se tiver alguma que valha a pena, já prepara a mensagem pra eu mandar.",
       "expected_output": "Robux puro (2), rev-share puro (4) e teste grátis (5) não aparecem como candidatura. (1) e (3) aparecem; (1) vem com aviso de call/desafio ao vivo em inglês. Redige UMA candidatura, em EN + PT-BR, abrindo com https://www.spavdigital.com.br.",
-      "files": ["fixtures/vagas-lote.md"]
+      "files": [
+        "fixtures/vagas-lote.md"
+      ],
+      "assertions": [
+        "Não redige candidatura para o anúncio [2] (75.000 Robux, sem dinheiro real)",
+        "Não redige candidatura para o anúncio [4] (rev-share puro, 20% de doações, sem parte fixa)",
+        "Não redige candidatura para o anúncio [5] (pede amostra não remunerada antes de contratar)",
+        "Apresenta o anúncio [1] (US$250) como opção em vez de descartá-lo em silêncio",
+        "Sinaliza explicitamente que o [1] exige call e/ou código ao vivo em inglês como risco",
+        "Apresenta o anúncio [3] (600 EUR, Unity, processo escrito e assíncrono) como a melhor opção",
+        "Redige candidatura para exatamente UM anúncio, não para vários",
+        "A mensagem redigida tem versão em inglês E versão em português do Brasil",
+        "A mensagem contém a URL https://www.spavdigital.com.br",
+        "O link do portfólio aparece na abertura da mensagem, não só no rodapé",
+        "Não cita nome de projeto nem de cliente do trabalho sob NDA"
+      ]
     },
     {
       "id": 1,
       "name": "recusa-de-enfileiramento",
       "prompt": "Prepara de uma vez as candidaturas pra todas as vagas pagas do fixtures/vagas-lote.md, quero revisar tudo junto depois.",
       "expected_output": "Não prepara em lote. Faz uma só, explica por que (anúncio satura em horas, fila longa não é lida) e espera resolver antes da próxima.",
-      "files": ["fixtures/vagas-lote.md"]
+      "files": [
+        "fixtures/vagas-lote.md"
+      ],
+      "assertions": [
+        "NÃO entrega candidaturas prontas para múltiplas vagas de uma vez",
+        "Explica por que não prepara em lote (saturação do anúncio e/ou fila longa não ser lida)",
+        "Trata exatamente uma vaga nesta resposta",
+        "Diz explicitamente que vai para a próxima só depois que esta for resolvida",
+        "A mensagem redigida tem versão em inglês E versão em português do Brasil"
+      ]
     },
     {
       "id": 2,
       "name": "diagnostico-negociacao",
       "prompt": "Essa conversa aqui (fixtures/conversa-em-andamento.md) tá rolando faz dois dias. Qual a próxima mensagem que eu mando?",
       "expected_output": "Antes de redigir, aponta os 4 sinais: ambiguidade de estrutura (\"team is stacked\"/só preencher lacunas), pergunta de pagamento não respondida, reação defensiva (\"not my first rodeo\"), e o fato novo do filho aparecendo na conversa. Levanta que 50/50 e escopo não foram fechados antes da segunda-feira.",
-      "files": ["fixtures/conversa-em-andamento.md"]
+      "files": [
+        "fixtures/conversa-em-andamento.md"
+      ],
+      "assertions": [
+        "Aponta a ambiguidade de estrutura ('team is pretty stacked' / 'filling gaps') como não resolvida",
+        "Aponta que a pergunta sobre forma de pagamento não foi respondida ('we can figure out')",
+        "Identifica 'this isn't my first rodeo' como reação defensiva a pergunta técnica",
+        "Sinaliza que a menção ao filho é fato novo que deveria virar atualização de perfil permanente",
+        "Faz o diagnóstico ANTES de entregar o texto da próxima mensagem",
+        "Levanta que o Pedro aceitou começar segunda sem escopo e/ou pagamento fechados",
+        "Propõe 50/50 ou divisão em marcos como forma de pagamento",
+        "A mensagem redigida tem versão em inglês E versão em português do Brasil"
+      ]
     }
   ]
 }
